@@ -5,6 +5,10 @@ section: personal
 ---
 # mistral-client
 
+<p align="center">
+  <img src="../images/genkit-mistral-logo-tr.png" width="200" alt="mistral-client logo">
+</p>
+
 `mistral-client` is a Golang library for interacting with the Mistral API.
 
 ## Presentation

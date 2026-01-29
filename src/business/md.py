@@ -59,11 +59,13 @@ class MarkdownDoc:
     def _embed_local_images(self, md: str) -> str:
         """Inline local image references as data URIs so Streamlit can render them."""
 
+        doc_dir = self.path.parent
+
         def to_data_uri(url: str) -> str | None:
             if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", url) or url.startswith("data:"):
                 return None
 
-            img_path = (self._dir_path / url).resolve()
+            img_path = (doc_dir / url).resolve()
             if not img_path.exists() or not img_path.is_file():
                 return None
 
@@ -135,4 +137,3 @@ class MarkdownLoader:
         metadata: dict[str, Any] = yaml.safe_load(yaml_content) or {}
 
         return metadata
-

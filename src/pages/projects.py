@@ -11,14 +11,14 @@ def render():
     md_loader = MarkdownLoader(PROJECT_DIR)
     st.header("Projects")
 
-    docs = md_loader.load_all()
+    docs = md_loader.load_by_section("personal")
     if not docs:
         st.write("No project found.")
         return
 
-    tabs = st.tabs([doc.tab_label for doc in docs])
+    tabs = st.tabs([doc.title for doc in docs])
     for doc, tab in zip(docs, tabs):
-        content = doc.body or "*No content provided.*"
+        content = doc.content or "*No content provided.*"
         tab.markdown(content, unsafe_allow_html=True)
 
 

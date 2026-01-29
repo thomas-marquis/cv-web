@@ -86,6 +86,16 @@ class TestMarkdownDoc:
 
             assert doc.content == ""
 
+        def test_embeds_local_images_with_data_uri(self, make_doc, tmp_path):
+            image_path = tmp_path / "image.png"
+            image_path.write_bytes(b"\x89PNG\r\n\x1a\ncontent")
+            doc = make_doc(f"---\ntitle: Demo\n---\n![Alt]({image_path.name})")
+
+            content = doc.content
+
+            assert "![Alt](data:image/png;base64," in content
+            assert image_path.name not in content
+
 
 class TestMarkdownLoader:
     class TestInit:
