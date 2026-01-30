@@ -12,7 +12,7 @@ skills:
   - name: Python
   - name: Couchbase
   - name: MS SQL Server
-  - name: TDD
+  - name: TDD (Test-Driven Development)
   - name: Mesos & Marathon
   - name: Kubernetes
   - name: Git

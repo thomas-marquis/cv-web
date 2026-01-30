@@ -25,6 +25,7 @@ skills:
   - name: Behave
   - name: Clean architecture
   - name: Behave
+  - name: TDD (Test-Driven Development)
 period:
   from: 2020-03
   to: 2022-07

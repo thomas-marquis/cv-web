@@ -1,108 +1,96 @@
 ---
-title: "Web developer at Xperis (six-month internship)"
+title: "Web Developer at Xperis (Six-Month Internship)"
 description: |
-  Internship for my last six-month internship. My mission was to improve a monitoring tool for the Cloverleaf EAI.
-
+  This internship marked the final six months of my studies. 
+  My mission was to enhance a monitoring tool for the Cloverleaf EAI platform by developing a metric dashboard.
 weight: 10
 skills:
   - name: Java
     details: |
-      The entire project backend was written in Java.
+      The entire project backend was developed in Java.
   - name: Struts 2
     details: |
-      Struts 2 is a Java framework that allows to create web applications.
-      The existing code was written using this framework.
+      Struts 2 is a Java framework designed for creating web applications. 
+      The existing codebase was built using this framework.
   - name: JavaScript
     details: |
-      Since Struts 2 is a server-side rendered web framework, the frontend needed some JS for more complex interactions.
-      No framework were used for the frontend, just vanilla JS and JQery. 
+      As Struts 2 is a server-side rendered framework, JavaScript was essential for implementing complex frontend interactions. 
+      No frontend frameworks were used. Only vanilla JavaScript and jQuery.
       (I spent hours on [this website](https://caniuse.com/), does this bring back memories?)
-  - name: JQuery
-  - name: D3js
+  - name: jQuery
+  - name: D3.js
     details: |
-      I used D3js to create interactive charts and graphs.
-      I have bench-marked several libraries and found D3js to be the most suitable for this project because of its flexibility and infinite possibilities.
+      I used D3.js to create dynamic and interactive charts and graphs. 
+      After benchmarking several libraries, D3.js was selected for its flexibility and extensive customization options.
   - name: CSS
   - name: Cloverleaf EAI
     details: |
-      EAI stands for Enterprise Application Integration.
-      It is a software architecture that allows different applications to communicate with each other.
-      Cloverleaf is an commercial EAI solution provided by an US company specialized for hospitals.
+      EAI (Enterprise Application Integration) is a software architecture that facilitates communication between different applications. 
+      Cloverleaf is a commercial EAI solution developed by a US company, specifically tailored for healthcare environments.
   - name: R
     details: |
-      Despite R was not needed for this project, I choose to use it to conduct data analysis on Cloverleaf metrics during the exploratory phase of the project.
-  - name: Subversion
+      Although R was not a requirement for the project, I used it during the exploratory phase to analyze Cloverleaf metrics and gain insights.
+  - name: Subversion (SVN)
     details: |
-      Historically, Xperis used SVN for version control.
-      Thus, I had to learn how to use SVN in order to contribute to the project.
-  - name: Vertx
+      Xperis historically used SVN for version control. I learned and utilized SVN to contribute effectively to the project.
+  - name: Vert.x
     details: |
-      Vertx is a Java framework that allows to create reactive applications.
-      I used it to create a RESTful API for Cloverleaf metrics.
-      This API server were hosted on the Cloverleaf server and was responsible to collect metrics and expose them to the main application backend.
+      Vert.x is a Java framework for building reactive applications. I used it to develop a RESTful API for collecting and exposing Cloverleaf metrics. This API was hosted on the Cloverleaf server.
   - name: SQLite
     details: |
-      SQLite is the default database where Cloverleaf stored the metrics.
-      The Vertx API server got connected to this database to retrieve them.
-  - name: User interviews
+      SQLite served as the default database for storing Cloverleaf metrics. The Vert.x API connected to this database to retrieve the necessary data.
+  - name: User Interviews
     details: |
-      I conducted user interviews with the project's users to understand their needs.
-      These interviews helped me to define the project's requirements and backlog.
-  - name: Needs analysis
-  - name: TDD
+      I conducted interviews with hospital IT department managers to understand their needs and pain points. These interviews were instrumental in defining the project requirements and shaping the backlog.
+  - name: Needs Analysis
+  - name: TDD (Test-Driven Development)
     details: |
-      The existing code didn't contain any unit tests.
-      I had to write unit tests for the new features I was implementing.
-      Then, I implemented most of the features using TDD.
+      The existing codebase lacked unit tests. 
+      I introduced unit testing for new features and adopted TDD for most of the development process.
   - name: JUnit
     details: |
-      I used Junit to write unit tests for the backend.
+      JUnit was used to write unit tests for the backend components.
   - name: Jasmine
     details: |
-      I used Jasmine to write unit tests for the frontend.
+      Jasmine was employed to write unit tests for the frontend logic.
   - name: Mockito
     details: |
-      Mockito is a Java library that helps to write mocks in the unit tests.
-      I used it to mock some of the backend's classes for tests.
-  - name: Independent work
+      Mockito, a Java library for creating mock objects, was used to simulate dependencies in backend unit tests.
+  - name: Independent Work
     details: |
-      I was the only developer on this project.
-  - name: Technical conception
+      I was the sole developer on this project, responsible for all aspects of design, development, and testing.
+  - name: Technical Design
     details: |
-      For this internship, I had to design the technical architecture myself.
-      My main constraint was to adapt my technical choices to the project's requirements and constraints.
+      I designed the technical architecture for the project, ensuring that all choices aligned with the requirements and constraints of the platform.
 period:
   from: 2017-03
   to: 2017-09
   format: %Y-%m
 location: Bordeaux, France
 ---
-# Web developer at Xperis (six-month internship)
+# Web Developer at Xperis (Six-Month Internship)
 
 ## Context
 
-Xperis is a French company located in Bordeaux, specialized in the healthcare EAI platform Cloverleaf.
-An EAI is a software architecture that allows different applications to communicate with each other.
-Cloverleaf is developed and maintained by a US company. Xperis is an independent company that distributes Cloverleaf to the hospitals in France.
-Alongside, Xperis developed a monitoring platform for Cloverleaf. 
-It consists of a simple web application that allows users (hospital IT departments) to monitor messages sent through the system and diagnose issues.
+Xperis is a French company based in Bordeaux, specializing in the **Cloverleaf EAI platform** for healthcare. 
+**EAI (Enterprise Application Integration)** enables seamless communication between different software applications. 
+Cloverleaf, developed and maintained by a US company, is distributed in France by Xperis. Alongside this, 
+Xperis developed a **monitoring platform** for Cloverleaf—a web application designed to help hospital 
+IT departments monitor system messages and diagnose issues.
 
-My mission was to add a metric dashboard to this monitoring tool.
+My mission was to **enhance this monitoring tool by adding a metric dashboard**.
 
-## Key achievements
+## Key Achievements
 
-**🖼 Frontend development:**
+### 🖼 Frontend Development
+- Developed a **dashboard** using **D3.js**, vanilla JavaScript, and jQuery.
+- Created **custom, interactive data visualizations** with D3.js.
+- Implemented **frontend tests** using Jasmine.
 
-- Developed a dashboard using D3js and vanilla JavaScript and JQuery.
-- Implemented custom and interactive data visualizations using D3js.
-- Implemented tests on the frontend using Jasmine.
+### ⚙️ Backend Development
+- Updated the backend to **collect, process, and expose Cloverleaf metrics** to the frontend.
+- Introduced **unit testing** for the backend using JUnit.
 
-**⚙️ Backend development:**
-
-- Updated the backend to collect, process and expose Cloverleaf metrics to the frontend.
-- Implemented unit tests for the backend using JUnit.
-
-**🎤 User interviews:**
-
-- Conducted interviews with some hospital IT departments managers to understand their needs.
-- Defined the project's requirements and built the backlog acordingly.
+### 🎤 User-Centric Approach
+- Conducted **interviews with hospital IT managers** to identify their needs.
+- Defined **project requirements** and built the backlog based on user feedback.

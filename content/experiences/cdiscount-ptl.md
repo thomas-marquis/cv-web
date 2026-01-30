@@ -33,6 +33,7 @@ skills:
   - name: Behave
   - name: Streamlit
   - name: Langchain / Langgraph / Deep Agents
+  - name: TDD (Test-Driven Development)
 period:
   from: 2022-07
   to: 2025-12
