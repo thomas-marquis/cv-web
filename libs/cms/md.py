@@ -10,6 +10,13 @@ from typing import Any
 import yaml
 
 from .skill import UsedSkill
+import datetime as dt
+
+
+@dataclass(frozen=True)
+class TimePeriod:
+    start: dt.datetime | None
+    end: dt.datetime | None
 
 
 @dataclass
@@ -22,12 +29,22 @@ class MarkdownDoc:
     section: str | None = None
     skills: list[UsedSkill] = field(default_factory=list)
     weight: int = 0
+    period: TimePeriod | None = None
 
     _content: str | None = None
 
     @classmethod
     def from_metadata(cls, path: Path, doc_metadata: dict[str, str]) -> MarkdownDoc:
         skills: list[dict[str, str]] = doc_metadata.get("skills", [])
+
+        tp = None
+        if period := doc_metadata.get("period", {}):
+            fmt = period.get("format", "%Y-%m-%d")
+            tp = TimePeriod(
+                start=dt.datetime.strptime(s, fmt) if (s := period.get("from")) else None,
+                end=dt.datetime.strptime(e, fmt) if (e := period.get("to")) else None,
+            )
+
         doc = cls(
             path=path,
             title=doc_metadata.get("title", path.stem.replace("-", " ").title()),
@@ -40,7 +57,9 @@ class MarkdownDoc:
                 for s in skills
             ],
             weight=int(doc_metadata.get("weight", 0)),
+            period=tp,
         )
+
         return doc
 
     @property

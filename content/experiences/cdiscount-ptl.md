@@ -37,7 +37,7 @@ skills:
 period:
   from: 2022-07
   to: 2025-12
-  format: %Y-%m
+  format: "%Y-%m"
 location: Bordeaux, France
 ---
 # Tech Lead MLops at Peaksys

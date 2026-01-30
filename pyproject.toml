@@ -8,8 +8,7 @@ dependencies = [
     "polars>=1.37.1",
     "pytest>=9.0.2",
     "pyyaml>=6.0.3",
-    "streamlit>=1.50.0",
-    "streamlit-timeline>=0.0.2",
+    "streamlit>=1.53.0",
 ]
 
 [dependency-groups]

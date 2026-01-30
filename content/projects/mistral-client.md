@@ -1,12 +1,40 @@
 ---
 title: Mistral Client
-icon: 
 section: personal
+weight: 50
+skills:
+  - name: Golang
+    details: |
+      This library is written in Golang and can be used in any Golang project.
+      The version used for this project is 1.25, the latest stable one at the time of writing.
+      
+      On top of this, I had to learn how to publish a library on Github Packages.
+  - name: Github Actions
+    details: |
+      Continuous integration, release and documentation build are performed with Github Actions.
+  - name: Mistral AI
+    details: |
+      As this library implements an interface contract of Mistral API, I had to check the API documentation to ensure compatibility.
+  - name: Automated Testing
+    details: |
+      In order to ensure the quality of the library and prevent regressions, I used diferent kinds of tests inside the project:
+      - Regular unit tests for stateless functions, sometimes with mocks
+      - Fake HTTP server with httptest to test the client's HTTP calls (ensuring the request body is correctly serialized)
+      
+      Other kind of tests will be added in the future (e.g. Fuzz, Benchmark, Examples...)
+  - name: Gomock
+    details: |
+      Gomock is a library able to generate mock objects for interfaces.
+      I used it to mock some internal dependencies of the library to test some other parts in isolation.
+  - name: MKdoc & MKdocs Material
+    details: |
+      Documentation is generated with MKdoc Material and published on Github Pages.
+      It is available [here](https://thomas-marquis.github.io/mistral-client/).
 ---
 # mistral-client
 
 <p align="center">
-  <img src="../images/genkit-mistral-logo-tr.png" width="200" alt="mistral-client logo">
+  <img src="../assets/images/mistral-client-logo-tr.png" width="200" alt="mistral-client logo">
 </p>
 
 `mistral-client` is a Golang library for interacting with the Mistral API.
@@ -26,6 +54,8 @@ This client also provides some advanced features such as:
 **Caching**: 
 
 If enabled, the requests and responses are cached locally. Thanks to the request's hash, if the user send the exact same request twice, the API won't be called and the cached response will be returned.
+
+Coming soon:
 
 **Fake models**:
 

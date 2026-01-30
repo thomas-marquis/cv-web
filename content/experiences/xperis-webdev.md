@@ -35,13 +35,16 @@ skills:
       Xperis historically used SVN for version control. I learned and utilized SVN to contribute effectively to the project.
   - name: Vert.x
     details: |
-      Vert.x is a Java framework for building reactive applications. I used it to develop a RESTful API for collecting and exposing Cloverleaf metrics. This API was hosted on the Cloverleaf server.
+      Vert.x is a Java framework for building reactive applications. 
+      I used it to develop a RESTful API for collecting and exposing Cloverleaf metrics. 
+      This API was hosted on the Cloverleaf server.
   - name: SQLite
     details: |
       SQLite served as the default database for storing Cloverleaf metrics. The Vert.x API connected to this database to retrieve the necessary data.
   - name: User Interviews
     details: |
-      I conducted interviews with hospital IT department managers to understand their needs and pain points. These interviews were instrumental in defining the project requirements and shaping the backlog.
+      I conducted interviews with hospital IT department managers to understand their needs and pain points. 
+      These interviews were instrumental in defining the project requirements and shaping the backlog.
   - name: Needs Analysis
   - name: TDD (Test-Driven Development)
     details: |
@@ -65,7 +68,7 @@ skills:
 period:
   from: 2017-03
   to: 2017-09
-  format: %Y-%m
+  format: "%Y-%m"
 location: Bordeaux, France
 ---
 # Web Developer at Xperis (Six-Month Internship)

@@ -29,7 +29,7 @@ skills:
 period:
   from: 2020-03
   to: 2022-07
-  format: %Y-%m
+  format: "%Y-%m"
 location: Bordeaux, France
 ---
 # Python expert for Data Science

@@ -24,7 +24,7 @@ skills:
 period:
   from: 2018-02
   to: 2020-03
-  format: %Y-%m
+  format: "%Y-%m"
 location: Bordeaux, France
 ---
 # Web and Chatbot Developer at Cdiscount

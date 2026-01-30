@@ -21,7 +21,7 @@ def overview() -> None:
 
 
 
-@st.dialog("About this experience", width="large")
+@st.dialog("About this experience", width="medium")
 def _open_experience(doc: MarkdownDoc) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
 
@@ -30,30 +30,45 @@ def _open_experience(doc: MarkdownDoc) -> None:
     st.divider()
     st.subheader("Skills used during this experience:")
     for skill in doc.skills:
-        with st.expander(f"- {skill.name}", expanded=False):
+        label = f"{skill.name}"
+        if skill.details:
+            label += " :material/info:"
+        with st.expander(label, expanded=False):
             if skill.details:
                 st.write(skill.details)
-
-
 
 
 def cv_experiences() -> None:
     st.title(":briefcase: Professional Experiences")
 
-
     docs = xp_loader.load_all()
 
+    for i, xp_doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):
+        if xp_doc.period and (start := xp_doc.period.start):
+            end = xp_doc.period.end
+            label = start.strftime("%B %Y - ")
+            if end:
+                label += end.strftime("%B %Y")
+            else:
+                label += "Present"
+            st.subheader(f"-> {label}")
 
-    for xp_doc in sorted(docs, key=attrgetter("weight"), reverse=True):
         with st.container(border=True):
             st.subheader(xp_doc.title)
 
+            if d := xp_doc.description:
+                st.write(d)
+
             if skills := xp_doc.skills:
                 skills_list = ", ".join(skill.name for skill in skills)
-                st.write(f"Skills used: {skills_list}")
+                st.caption(f"Skills used: {skills_list}")
 
-            if st.button("read the whole story...", key=f"details_open_btn_{xp_doc.title}"):
+            if st.button("Read the full story ->", key=f"details_open_btn_{xp_doc.title}"):
                 _open_experience(xp_doc)
+
+        if i < len(docs) - 1:
+            st.space("small")
+
 
 
 
