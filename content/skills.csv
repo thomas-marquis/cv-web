@@ -1,2 +1,46 @@
-skill,level,last_used_year,is_professional
-python,3,2025,true
+skill,level,last_used_year,in_industrial_context
+Python,3,2026,true
+Python Data Science libraries,,2025,true
+Docker,,2026,true
+Azure AI Foundry (aka Azure OpenAI),,2025,true
+Golang,,2026,false
+Kubernetes,,2025,true
+Helm,,2025,true
+Hexagonal Architecture,,2025,true
+Pair & Mob Programming,,2025,true
+Argo Workflows,,2024,true
+FastAPI,,2025,true
+Snowflake,,2025,true
+Nvidia GPUs,,2025,true
+OIDC & Oauth2,,2025,true
+Code performance optimization,,2024,true
+Linux & Bash,,2026,true
+Git,,2026,true
+Prometheus PromQL & Grafana,,2025,true
+Azure DevOps YAML pipelines,,2025,true
+Technical conception,,2025,true
+Machine Learning,,2025,true
+MLflow,,2026,true
+Java,,2020,true
+Spring Boot,,2020,true
+ReactJS,,2022,true
+React Native,,2020,true
+Dialogflow (NLP),,2020,true
+Kotlin,,2024,true
+Couchbase,,2021,true
+MS SQL Server,,2020,true
+TDD,,2026,true
+Mesos & Marathon,,2020,true
+CSS,,2025,true
+Struts 2,,2017,true
+JavaScript,,2026,true
+JQuery,,2017,true
+D3js,,2017,true
+Cloverleaf EAI,,2017,true
+R,,2023,false
+Subversion,,2017,true
+Vertx,,2020,true
+SQLite,,2025,true
+User interviews,,2021,true
+Needs analysis,,2017,true
+Independent work,,2026,true

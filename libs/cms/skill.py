@@ -1,5 +1,6 @@
 from collections import namedtuple
 from enum import Enum
+from dataclasses import dataclass
 
 SkillLevel = namedtuple("SkillLevel", ["level", "label",  "description", "examples"])
 
@@ -89,3 +90,10 @@ class SkillLevelEnum(Enum):
         return "\n- ".join([""] + self.value.examples)
 
 
+@dataclass
+class UsedSkill:
+    name: str
+    """skill's name acts as a unique identifier"""
+
+    details: str | None = None
+    """details about how the skill was used in which context"""

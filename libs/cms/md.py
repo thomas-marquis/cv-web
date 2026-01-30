@@ -9,25 +9,37 @@ from typing import Any
 
 import yaml
 
+from .skill import UsedSkill
+
 
 @dataclass
 class MarkdownDoc:
     path: Path
     title: str
     icon: str | None = None
+    description: str | None = None
     metadata: dict[str, str] = field(default_factory=dict)
     section: str | None = None
+    skills: list[UsedSkill] = field(default_factory=list)
+    weight: int = 0
 
     _content: str | None = None
 
     @classmethod
     def from_metadata(cls, path: Path, doc_metadata: dict[str, str]) -> MarkdownDoc:
+        skills: list[dict[str, str]] = doc_metadata.get("skills", [])
         doc = cls(
             path=path,
             title=doc_metadata.get("title", path.stem.replace("-", " ").title()),
             metadata=doc_metadata.get("metadata", {}),
             section=doc_metadata.get("section"),
             icon=doc_metadata.get("icon"),
+            description=doc_metadata.get("description"),
+            skills=[
+                UsedSkill(name=s["name"], details=s.get("details"))
+                for s in skills
+            ],
+            weight=int(doc_metadata.get("weight", 0)),
         )
         return doc
 

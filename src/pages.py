@@ -1,38 +1,56 @@
+from operator import attrgetter
+
 import streamlit as st
 
 from libs.cms.md import MarkdownLoader, MarkdownDoc
-from libs.cms.widgets.card import card
-from src.skills import SkillLevelEnum
+from libs.cms.skill import SkillLevelEnum
+
+xp_loader = MarkdownLoader("content/experiences")
 
 
 def overview() -> None:
     st.title(":man_technologist: Overview")
-    st.write("TODO: quick profile overview")
+
+
+    st.subheader("Last experience")
 
 
 
 
-@st.dialog("Coucou", width="large")
-def dialog_coucou(doc: MarkdownDoc) -> None:
+
+@st.dialog("About this experience", width="large")
+def _open_experience(doc: MarkdownDoc) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
-    if st.button("Even more"):
-        dialog_coucou(doc)
+
+    if not doc.skills:
+        return
+    st.divider()
+    st.subheader("Skills used during this experience:")
+    for skill in doc.skills:
+        with st.expander(f"- {skill.name}", expanded=False):
+            if skill.details:
+                st.write(skill.details)
+
+
 
 
 def cv_experiences() -> None:
     st.title(":briefcase: Professional Experiences")
 
-    card(title="Platform Tech lead for the AI team at Peaksys",
-         subtitle="July 2022 - December 2025")
 
-    loader = MarkdownLoader("content/projects")
-    docs = loader.load_by_section("personal")
-
-    if st.button("Show more"):
-        dialog_coucou(docs[0])
+    docs = xp_loader.load_all()
 
 
+    for xp_doc in sorted(docs, key=attrgetter("weight"), reverse=True):
+        with st.container(border=True):
+            st.subheader(xp_doc.title)
 
+            if skills := xp_doc.skills:
+                skills_list = ", ".join(skill.name for skill in skills)
+                st.write(f"Skills used: {skills_list}")
+
+            if st.button("read the whole story...", key=f"details_open_btn_{xp_doc.title}"):
+                _open_experience(xp_doc)
 
 
 def cv_skills() -> None:
