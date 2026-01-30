@@ -1,9 +1,12 @@
 from operator import attrgetter
 
 import streamlit as st
+import polars
 
 from libs.cms.md import MarkdownLoader, MarkdownDoc
 from libs.cms.skill import SkillLevelEnum
+
+SKILLS_FILEPATH = "content/skills.csv"
 
 xp_loader = MarkdownLoader("content/experiences")
 
@@ -53,8 +56,27 @@ def cv_experiences() -> None:
                 _open_experience(xp_doc)
 
 
+
+
+st.cache_data()
+def _get_skills() -> polars.DataFrame:
+    return (
+        polars.read_csv(SKILLS_FILEPATH, has_header=True)
+        .sort("last_used_year", descending=True)
+        .rename({
+            "name": "Skill",
+            "level": "Level (see above)",
+            "last_used_year": "Last used",
+            "in_industrial_context": "Used in production?",
+        })
+    )
+
+
+
 def cv_skills() -> None:
     st.title(":hammer_and_wrench: Skills")
+
+    skills_df = _get_skills()
 
     with st.expander("About skill levels...", expanded=False):
         for level in SkillLevelEnum:
@@ -66,6 +88,8 @@ def cv_skills() -> None:
             with ex_col:
                 with st.expander("Examples...", expanded=False):
                     st.write(level.examples_formatted)
+
+    st.dataframe(skills_df, height=600)
 
 
 

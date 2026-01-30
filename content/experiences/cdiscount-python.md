@@ -22,6 +22,14 @@ skills:
   - name: Azure DevOps YAML pipelines
   - name: Technical conception
   - name: User interviews
+  - name: Behave
+  - name: Clean architecture
+  - name: Behave
+period:
+  from: 2020-03
+  to: 2022-07
+  format: %Y-%m
+location: Bordeaux, France
 ---
 # Python expert for Data Science
 

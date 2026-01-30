@@ -1,46 +1,54 @@
-skill,level,last_used_year,in_industrial_context
-Python,3,2026,true
-Python Data Science libraries,,2025,true
-Docker,,2026,true
-Azure AI Foundry (aka Azure OpenAI),,2025,true
-Golang,,2026,false
-Kubernetes,,2025,true
-Helm,,2025,true
-Hexagonal Architecture,,2025,true
-Pair & Mob Programming,,2025,true
-Argo Workflows,,2024,true
-FastAPI,,2025,true
-Snowflake,,2025,true
-Nvidia GPUs,,2025,true
-OIDC & Oauth2,,2025,true
-Code performance optimization,,2024,true
-Linux & Bash,,2026,true
-Git,,2026,true
-Prometheus PromQL & Grafana,,2025,true
-Azure DevOps YAML pipelines,,2025,true
-Technical conception,,2025,true
-Machine Learning,,2025,true
-MLflow,,2026,true
-Java,,2020,true
-Spring Boot,,2020,true
-ReactJS,,2022,true
-React Native,,2020,true
-Dialogflow (NLP),,2020,true
-Kotlin,,2024,true
-Couchbase,,2021,true
-MS SQL Server,,2020,true
-TDD,,2026,true
-Mesos & Marathon,,2020,true
-CSS,,2025,true
-Struts 2,,2017,true
-JavaScript,,2026,true
-JQuery,,2017,true
-D3js,,2017,true
-Cloverleaf EAI,,2017,true
-R,,2023,false
-Subversion,,2017,true
-Vertx,,2020,true
-SQLite,,2025,true
-User interviews,,2021,true
-Needs analysis,,2017,true
-Independent work,,2026,true
+name,level,last_used_year,in_industrial_context,link
+Python,3,2026,true,
+Python Data Science libraries,,2025,true,https://github.com/r0f1/datascience
+Docker,,2026,true,
+Azure AI Foundry,,2025,true,https://ai.azure.com/
+Golang,,2026,false,https://go.dev/learn/
+Kubernetes,,2025,true,
+Helm,,2025,true,https://helm.sh/docs/
+Hexagonal Architecture,,2025,true,https://alistair.cockburn.us/hexagonal-architecture
+Pair & Mob Programming,,2025,true,
+Argo Workflows,,2024,true,https://argo-workflows.readthedocs.io/en/latest/
+FastAPI,,2025,true,https://fastapi.tiangolo.com/
+Snowflake,,2025,true,https://docs.snowflake.com/en/developer-guide/python-connector/python-connector
+Nvidia GPUs,,2025,true,https://docs.nvidia.com/cuda/cuda-programming-guide/index.html
+OIDC & Oauth2,,2025,true,https://openid.net/specs/openid-connect-core-1_0.html
+Code performance optimization,,2024,true,
+Linux & Bash,,2026,true,
+Git,,2026,true,
+Prometheus PromQL & Grafana,,2025,true,https://prometheus.io/docs/prometheus/latest/querying/basics/
+Azure DevOps YAML pipelines,,2025,true,https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops
+Technical conception,,2025,true,
+Machine Learning,,2025,true,
+MLflow,,2026,true,https://mlflow.org/docs/latest/ml/getting-started/
+Java,,2020,true,
+Spring Boot,,2020,true,
+ReactJS,,2022,true,https://react.dev/
+React Native,,2020,true,https://reactnative.dev/
+Dialogflow (ES),,2020,true,https://docs.cloud.google.com/dialogflow/es/docs
+Kotlin,,2024,true,
+Couchbase,,2021,true,
+MS SQL Server,,2020,true,
+TDD,,2026,true,
+Mesos & Marathon,,2020,true,https://aventer-ug.github.io/marathon/index.html
+CSS,,2025,true,
+Struts 2,,2017,true,https://struts.apache.org/index.html
+JavaScript,,2026,true,
+JQuery,,2017,true,
+D3js,,2017,true,https://d3js.org/
+Cloverleaf EAI,,2017,true,
+R,,2023,false,https://www.r-project.org/
+Subversion,,2017,true,https://subversion.apache.org/
+Vertx,,2020,true,https://vertx.io/
+SQLite,,2025,true,
+User interviews,,2021,true,
+Needs analysis,,2017,true,
+Independent work,,2026,true,
+Mockito,,2020,true,https://site.mockito.org/
+Jasmine,,2023,true,https://jasmine.github.io/
+Cucumber,,2020,true,https://cucumber.io/
+JUnit,,2020,true,https://junit.org/
+Behave,,2025,true,https://behave.readthedocs.io/en/latest/
+Clean architecture,,2026,true,https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+Streamlit,,2026,true,https://docs.streamlit.io/develop/concepts
+Langchain / Langgraph / Deep Agents,,2025,true,https://docs.langchain.com/oss/python/deepagents/overview

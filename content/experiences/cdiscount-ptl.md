@@ -10,7 +10,7 @@ skills:
       At the end of my mission, I also tested polars as an alternative to pandas.
       This library is faster than pandas, uses less memory and is easier to use.
   - name: Docker
-  - name: Azure AI Foundry (aka Azure OpenAI)
+  - name: Azure AI Foundry
   - name: Golang
   - name: Kubernetes
   - name: Helm
@@ -29,6 +29,15 @@ skills:
   - name: Technical conception
   - name: Machine Learning
   - name: MLflow
+  - name: Clean architecture
+  - name: Behave
+  - name: Streamlit
+  - name: Langchain / Langgraph / Deep Agents
+period:
+  from: 2022-07
+  to: 2025-12
+  format: %Y-%m
+location: Bordeaux, France
 ---
 # Tech Lead MLops at Peaksys
 
