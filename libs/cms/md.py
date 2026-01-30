@@ -96,7 +96,9 @@ class MarkdownDoc:
 
 
 class MarkdownLoader:
-    def __init__(self, dir_path: Path) -> None:
+    def __init__(self, dir_path: Path | str) -> None:
+        if isinstance(dir_path, str):
+            dir_path = Path(dir_path)
         if not dir_path.is_dir():
             raise ValueError(f"Directory not found: {dir_path}")
 
@@ -113,6 +115,12 @@ class MarkdownLoader:
                 md = MarkdownDoc.from_metadata(path, metadata)
                 docs.append(md)
         return docs
+
+    def load_by_filename(self, filename: str) -> MarkdownDoc | None:
+        path = self._dir_path / filename
+        if not path.is_file():
+            return None
+        return MarkdownDoc.from_metadata(path, self._parse_front_matter(path.read_text(encoding="utf-8")))
 
     @staticmethod
     def _parse_front_matter(text: str) -> dict[str, str]:

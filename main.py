@@ -1,14 +1,32 @@
 import streamlit as st
 
+from src import pages
 
 
 def main() -> None:
-    st.set_page_config(page_title="CV Portfolio", page_icon=":briefcase:")
-    st.title("Thomas Marquis")
+    st.set_page_config(page_title="CV Portfolio", page_icon=":material/business_center:")
 
-    home_page = st.Page("src/pages/home.py", title="Home")
-    projects_page = st.Page("src/pages/projects.py", title="Projects")
-    pg = st.navigation([home_page, projects_page], position="sidebar")
+    pg = {
+        "": [
+            st.Page(pages.overview, title="Thomas Marquis", icon=":material/home:"),
+        ],
+        "CV": [
+            st.Page(pages.cv_experiences, title="Experiences", icon=":material/business_center:"),
+            st.Page(pages.cv_skills, title="Skills", icon=":material/handyman:"),
+            st.Page(pages.cv_education, title="Education", icon=":material/school:")
+        ],
+        "Other": [
+            st.Page(pages.other_side_projects, title="Side Projects", icon=":material/code:"),
+            st.Page(pages.other_publications, title="Publications", icon=":material/book:"),
+        ],
+        "Information": [
+            st.Page(pages.info_contact, title="Contact", icon=":material/email:"),
+        ],
+    }
+
+
+
+    pg = st.navigation(pg, position="sidebar", expanded=True)
 
     pg.run()
 

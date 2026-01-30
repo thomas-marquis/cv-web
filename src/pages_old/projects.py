@@ -2,12 +2,12 @@ from pathlib import Path
 
 import streamlit as st
 
-from src.business.md import MarkdownLoader
+from libs.cms.md import MarkdownLoader
 
 PROJECT_DIR = Path("content/projects")
 
 
-def render():
+def projects_page():
     md_loader = MarkdownLoader(PROJECT_DIR)
     st.header("Projects")
 
@@ -20,7 +20,3 @@ def render():
     for doc, tab in zip(docs, tabs):
         content = doc.content or "*No content provided.*"
         tab.markdown(content, unsafe_allow_html=True)
-
-
-if __name__ == "__main__":
-    render()

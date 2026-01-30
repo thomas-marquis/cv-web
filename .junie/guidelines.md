@@ -8,6 +8,7 @@
 - All tests are located in `tests`
 - This is a CMS like application, most of the content is stored in markdown files in `content` folder
 - This is an `uv` project, use it to manage dependcies and run the application
+- Use modern python syntax (>=3.13)
 
 ## Coding conventions
 
