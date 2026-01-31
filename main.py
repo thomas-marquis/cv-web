@@ -18,8 +18,10 @@ def main() -> None:
         "Other": [
             st.Page(pages.other_side_projects, title="Side Projects", icon=":material/code:"),
             st.Page(pages.other_publications, title="Publications", icon=":material/book:"),
+            # TODO: Repos
         ],
         "Information": [
+            # TODO: Download
             st.Page(pages.info_contact, title="Contact", icon=":material/email:"),
         ],
     }

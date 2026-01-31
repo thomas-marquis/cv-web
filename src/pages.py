@@ -19,8 +19,6 @@ def overview() -> None:
 
 
 
-
-
 @st.dialog("About this experience", width="medium")
 def _open_experience(doc: MarkdownDoc) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
