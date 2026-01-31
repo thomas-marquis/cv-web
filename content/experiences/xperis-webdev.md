@@ -4,6 +4,7 @@ description: |
   This internship marked the final six months of my studies. 
   My mission was to enhance a monitoring tool for the Cloverleaf EAI platform by developing a metric dashboard.
 weight: 10
+image: "content/assets/images/java-logo.png"
 skills:
   - name: Java
     details: |

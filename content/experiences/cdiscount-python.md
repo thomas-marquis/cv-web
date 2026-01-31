@@ -1,6 +1,7 @@
 ---
 title: "Python Developer"
 weight: 30
+image: "content/assets/images/python-logo.png"
 skills:
   - name: Python
   - name: Python Data Science libraries

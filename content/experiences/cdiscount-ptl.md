@@ -1,6 +1,7 @@
 ---
 title: Tech Lead MLops at Peaksys
 description: July 2022 -> December 2025. Platform Tech lead for the AI team at Peaksys.
+image: "content/assets/images/python-logo.png"
 weight: 40
 skills:
   - name: Python

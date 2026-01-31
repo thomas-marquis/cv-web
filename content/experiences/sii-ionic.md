@@ -1,8 +1,9 @@
 ---
-title: "Mobile App development at SII"
+title: "Mobile App Development at SII"
+description: "Ionic / Cordova mobile app developement for a pre-sales project. A meeting room booking app."
 weight: 15
 skills:
-  - name: Ionic
+  - name: Ionic / Cordova
   - name: Angular
   - name: Git
 period:
@@ -11,37 +12,35 @@ period:
   format: "%Y-%m"
 ---
 
-# Mobile App development at SII
+# Mobile App Development at SII
 
-My very first step into the profesional world!
+My very first step into the professional world!
 
-I joint SII - a French IT Services Company - at the beginig of 2018. 
-My first mission was to develop a meeting room booking app.
-It was a before-sale project, the final goal was to sell it to a client.
+I joined SII—a French IT services company—at the beginning of 2018. My first mission was to develop a meeting room booking app as a pre-sales project, with the goal of selling it to a client.
 
-## Key achievements
+## Key Achievements
 
-**Created a working prototype**
+**Developed a Functional Prototype**
 
-- the app was developed in Ionic and Angular
-- Ionic allows to develop cross-platform hybrid apps verry quickly
-- The prototype workd on both Android and iOS devices
-- For this project, I didn't use any backend. 
-- The application were connected to the Azure
+- The app was built using **Ionic** and **Angular**.
+- Ionic enabled rapid cross-platform hybrid app development.
+- The prototype worked seamlessly on both **Android** and **iOS** devices.
+- No backend was used for this project.
+- The application integrated with **Microsoft Exchange (Graph API)** for room booking functionality.
 
-**Learning everything**
+**Rapid Learning Curve**
 
-- The main challenge was that I had to learn everything abot the technical stack, as well as the mobile development echosystem (android studio, Ccode...)
+- The main challenge was learning the entire technical stack and the mobile development ecosystem, including tools like **Android Studio** and **Xcode**.
 
-## Technical stack
+## Technical Stack
 
-- Ionic
-- Angular
-- Microsoft Exchange (Graph API)
-- OAuth2 authentication
+- **Ionic**
+- **Angular**
+- **Microsoft Exchange (Graph API)**
+- **OAuth2 Authentication**
 
 ## Results
 
-After a month, the prototype was working and able to book meeting rooms.
+After just one month, the prototype was fully functional and capable of booking meeting rooms.
 
-Unfortunately, the project was abandoned for business reasons.
+Unfortunately, the project was discontinued for business reasons.

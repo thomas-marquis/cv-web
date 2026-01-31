@@ -1,5 +1,7 @@
 ---
 title: "Web and Chatbot Developer at Cdiscount"
+description: "Web and chatbot development for Cdiscount. Worked on a chatbot using Dialogflow and Spring Boot."
+image: "content/assets/images/java-logo.png"
 weight: 20
 skills:
   - name: Java

@@ -30,6 +30,7 @@ class MarkdownDoc:
     skills: list[UsedSkill] = field(default_factory=list)
     weight: int = 0
     period: TimePeriod | None = None
+    image_path: Path | None = None
 
     _content: str | None = None
 
@@ -45,6 +46,8 @@ class MarkdownDoc:
                 end=dt.datetime.strptime(e, fmt) if (e := period.get("to")) else None,
             )
 
+        image_path = Path(p) if (p := doc_metadata.get("image") )else None
+
         doc = cls(
             path=path,
             title=doc_metadata.get("title", path.stem.replace("-", " ").title()),
@@ -58,6 +61,7 @@ class MarkdownDoc:
             ],
             weight=int(doc_metadata.get("weight", 0)),
             period=tp,
+            image_path=image_path
         )
 
         return doc
