@@ -1,7 +1,10 @@
-import polars
+from sqlite3 import ProgrammingError
+
+import polars as pl
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
+from libs.cms.common import Pager
 from libs.cms.documents.layouts import cards_and_dialogs_layout
 from libs.cms.md import MarkdownLoader
 from libs.cms.skill import SkillLevelEnum
@@ -39,18 +42,13 @@ def cv_experiences() -> None:
 
 
 @st.cache_data()
-def _get_skills() -> polars.DataFrame:
-    return (
-        polars.read_csv(SKILLS_FILEPATH, has_header=True)
-        .sort("last_used_year", descending=True)
-        .rename(
-            {
-                "name": "Skill",
-                "level": "Level (see bellow)",
-                "last_used_year": "Last used",
-                "in_industrial_context": "Used in production?",
-            }
-        )
+def _load_data(path: str) -> pl.DataFrame:
+    return pl.read_csv(path, has_header=True).cast(
+        {
+            "level": pl.Int64,
+            "last_used_year": pl.Int64,
+            "in_industrial_context": pl.Boolean,
+        }
     )
 
 
@@ -58,29 +56,78 @@ def _get_skills() -> polars.DataFrame:
 def cv_skills() -> None:
     st.title(":hammer_and_wrench: Skills")
 
-    if "from_page" in st.query_params:
-        page_name = st.query_params.from_page
-        st.page_link(_get_page(page_name, f"<- Back to {page_name.title()}"))
+    data = _load_data(SKILLS_FILEPATH)
 
-    skills_df = _get_skills()
+    filters = []
+
+    with st.expander("Filters...", expanded=False):
+        cols = st.columns(2)
+        with cols[0]:
+            prod_only = st.radio(
+                "Show only skills used in production?",
+                (None, True, False),
+                format_func=lambda x: {True: "Yes", False: "No", None: "View All"}[x],
+                key="prod_filter",
+            )
+            if prod_only is not None:
+                filters.append({"type": "is_equal", "column": "in_industrial_context", "value": prod_only})
+        with cols[1]:
+            skill_name = st.text_input("Filter by skill name", key="skill_name")
+            if skill_name:
+                filters.append({"type": "is_match_str", "column": "name", "value": skill_name})
 
     if "skill_name" in st.query_params:
-        skill_name: str = st.query_params.skill_name
-        skills_df = skills_df.filter(skills_df["Skill"] == skill_name)
+        filters.append({"type": "is_equal", "column": "name", "value": st.query_params.skill_name})
 
-    st.dataframe(skills_df, height="content")
+    if st.button("Reset filters", key="reset_filters"):
+        filters = []
 
-    st.space("small")
-    with st.expander("About skill levels...", expanded=False, icon=":material/help:"):
-        for level in SkillLevelEnum:
-            label_col, desc_col, ex_col = st.columns(3)
-            with label_col:
-                st.write(f"**{level.value.level}-{level.value.label}**")
-            with desc_col:
-                st.write(f"{level.value.description}")
-            with ex_col:
-                with st.expander("Examples...", expanded=False):
-                    st.write(level.examples_formatted)
+    for f in filters:
+        if "type" not in f:
+            raise ProgrammingError("Filter must have a type")
+
+        match f["type"]:
+            case "is_equal":
+                data = data.filter(pl.col(f["column"]) == f["value"])
+            case "is_match_str":
+                data = data.filter(pl.col(f["column"]).str.contains_any([f["value"]], ascii_case_insensitive=True))
+            case _:
+                raise ValueError(f"Unknown filter type: {f['type']}")
+
+    st.dataframe(
+        data,
+        height="content",
+        column_config={
+            "name": st.column_config.TextColumn(
+                "Skill",
+                pinned=True,
+            ),
+            "level": st.column_config.ProgressColumn(
+                "Level",
+                help="Self-evaluated level for the skill. "
+                "It correspond to the level reached the last time I used the skill. "
+                'So, you need to consider this value regarding to the value of the column "Last used". '
+                "See bellow for details about skill levels",
+                min_value=0,
+                max_value=5,
+                format="%d/5",
+            ),
+            "last_used_year": st.column_config.NumberColumn(
+                "Last used",
+                help="Year when I last used this skill",
+            ),
+            "in_industrial_context": st.column_config.CheckboxColumn(
+                "Used in production?",
+                help="Whether I used this skill in real production context or not",
+            ),
+            "link": st.column_config.LinkColumn(
+                "More info...",
+                help="Link to the skill documentation",
+                default="-",
+                display_text=r"https?://(.*?)\/.*",
+            ),
+        },
+    )
 
 
 @st.fragment
