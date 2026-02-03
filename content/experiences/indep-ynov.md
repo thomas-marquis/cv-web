@@ -1,5 +1,5 @@
 ---
-title: "YNOV Campus - Self-Employed Missions"
+title: "Self-Employed Missions at [YNOV Campus](https://www.ynov.com/campus/bordeaux)"
 description: |
   Self-employed missions for an engineering school in Bordeaux:
   - Member of the evaluation panel for final exams (Web Development, DevOps, and Data Science)

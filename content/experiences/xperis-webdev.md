@@ -84,6 +84,10 @@ IT departments monitor system messages and diagnose issues.
 
 My mission was to **enhance this monitoring tool by adding a metric dashboard**.
 
+## About Xperis
+
+In 2023, [Enovacom](https://www.enovacom.com/), another healthcare IT company, [acquired Xperis](https://www.lemondeinformatique.fr/actualites/lire-e-sante-enovacom-rachete-nehs-digital-et-xperis-91668.html).
+
 ## Key Achievements
 
 ### 🖼 Frontend Development
