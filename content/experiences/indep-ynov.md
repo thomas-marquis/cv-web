@@ -1,54 +1,49 @@
 ---
 title: "YNOV Campus - Self-Employed Missions"
 description: |
-  Side self-employed missions for an engineering school in Bordeaux:
-  - Member of the evaluation panel for the final exam (for Web development, Devops and Data Science exams)
-  - Building an automated Python course
+  Self-employed missions for an engineering school in Bordeaux:
+  - Member of the evaluation panel for final exams (Web Development, DevOps, and Data Science)
+  - Development of an automated Python course
 image: "content/assets/images/ynov-logo.jpg"
 weight: 35
 skills:
   - name: Python
     details: |
-      Used version: 3.10
+      Version used: 3.10
 period:
   from: "2022-06"
   format: "%Y-%m"
 ---
 
-# YNOV Campus - Self-Employed Missions
+# YNOV Campus – Self-Employed Missions
 
-Alongside my regular occupation, I also work as a self-employed missionary for an engineering school in Bordeaux, **[YNOV Campus](https://www.ynov.com/campus/bordeaux)**.
+Alongside my professional activities, I work as a self-employed consultant for **[YNOV Campus](https://www.ynov.com/campus/bordeaux)**, an engineering school in Bordeaux.
 
-I have conducted punctual missions, a few times per year, such as:
+I have undertaken several missions, a few times a year, including:
 
-- Member of the evaluation panel for the engineering school's final exam for the following subjects:
-  - Web development
-  - Devops
+- Serving as a **member of the evaluation panel** for the school’s final exams in:
+  - Web Development
+  - DevOps
   - Data Science
-- Building an automated Python course (in a style of Coding Game)
+- Developing an **automated Python course** (similar to CodingGame)
 
-## Member of the evaluation panel
+## Member of the Evaluation Panel
 
-Multiple times per year, I am part of the evaluation panel. 
-I have to evaluate the students' work, according to their oral presentation, their dissertation and their codebase.
+Several times a year, I participate in the evaluation panel for final exams. My role involves assessing students' work based on their oral presentations, dissertations, and codebases.
 
-I evaluate students' work according to an official criteria grid.
-Some of the skills I have to assess are:
-- Technical design choices
-- Code quality
-- Testing
-- etc.
+I evaluate their projects using an official criteria grid, for instance:
+- **Technical design choices**
+- **Code quality**
+- **Testing**
 
-During these evaluations, I have to read a lot of different projects written in many different languages (usually, PHP, Node and Java).
+During these evaluations, I review a wide range of projects written in various programming languages, such as **PHP, Node.js, and Java**.
 
-## Automated Python course
+## Automated Python Course
 
-YNOV provides to their students an e-learning platform, where it is possible to learn a programming language with interactive exercises.
-An automated system assure the correctness of the students' work.
+YNOV Campus offers students an **e-learning platform** where they can learn programming languages through interactive exercises. 
+An automated system verifies the correctness of their work.
 
-YNOV tasked me to develops the exercises, and to write the automated tests for the python programming language.
-My tasks were:
-- Design a full course with a smoothly growing difficulty
-- Write the exercise and solutions
-- Write the automated tests
-
+I was tasked with:
+- **Designing a comprehensive course for Python** with progressively increasing difficulty
+- **Creating exercises and solutions**
+- **Writing automated tests** to validate student submissions
