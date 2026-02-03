@@ -1,126 +1,114 @@
 ---
-title: Tech Lead MLops at [Peaksys](https://www.linkedin.com/company/peaksys/posts/?feedView=all)
+title: Tech Lead MLOps at [Peaksys](https://www.linkedin.com/company/peaksys/posts/?feedView=all)
 description: |
-  Deploying the MLOps approach, designing and building a scalable AI/ML platform, 
-  hiring and mentoring python developers, making code reviews and technical choices, R&D.
-  
-  - Deployed MLflow as a model registry, developed a python client and CICD pipelines
-  - Deployed LLMs and embedding models both on Azure and on-premise (with TGI and Triton Inference Server)
-  - Developed a RAG application with FastAPI/Langchain/PgVector
-  - Prototyping AI multi-agent architecture with Langchain, Langgraph, a2a-sdk and mcp
+  Deploying the MLOps approach, designing and building a scalable AI/ML platform,
+  hiring and mentoring Python developers, conducting code reviews, and making technical decisions.
+  Engaging in R&D to explore innovative solutions.
+
+  - Deployed MLflow as a model registry, developed a Python client, and built CI/CD pipelines
+  - Deployed LLMs and embedding models on Azure and on-premise (using TGI and Triton Inference Server)
+  - Developed a RAG application with FastAPI, Langchain, and PgVector
+  - Prototyped AI multi-agent architecture with Langchain, Langgraph, a2a-sdk, and MCP
 image: "content/assets/images/python-logo.png"
 weight: 40
 skills:
   - name: Python
-  - name: Python Data Science libraries
+  - name: Python Data Science Libraries
     details: |
-      Most of our Data Science jobs are based on pandas, numpy, scikit-learn, and other libraries.
-      At the end of my mission, I also tested polars as an alternative to pandas.
-      This library is faster than pandas, uses less memory and is easier to use.
+      Most of our data science projects relied on libraries such as pandas, numpy, scikit-learn, and others.
+      Toward the end of my mission, I also tested polars as an alternative to pandas.
+      Polars is faster, uses less memory, and is easier to use compared to pandas.
   - name: Docker
   - name: Azure AI Foundry
     details: |
-      Azure AI Foundry (previously AzureOpenAI) is a service that allows you to deploy and manage LLM models endpoint.
-      Most of the model we used on this platform was OpenAI models.
-      
-      Managing model deployments manually was time-consuming and error-prone. 
-      That's why we developed an APIOps pipeline to automate the deployment process.
-      
-      We also used Azure API Management (APIM) to provide a better user experience and to manage the access to our models.
+      Azure AI Foundry (formerly Azure OpenAI) is a service for deploying and managing LLM model endpoints.
+      Most of the models we used on this platform were OpenAI models.
+
+      Manually managing model deployments was time-consuming and prone to errors.
+      To address this, we developed an APIOps pipeline to automate the deployment process.
+
+      We also used Azure API Management (APIM) to enhance user experience and manage access to our models.
   - name: Golang
     details: |
-      I used Golang to build some automation tools, for instance:
-      
-      - A scanner to audit all the Jobs and CronJob deployed on our Kubernetes cluster (more than 100 jobs).
-      - A MCP server for VS code and Cursor able to interact with our Confluence knowledge base.
+      I used Golang to build automation tools, such as:
+      - A scanner to audit all Jobs and CronJobs deployed on our Kubernetes cluster (over 100 jobs)
+      - An MCP server for VS Code and Cursor, capable of interacting with our Confluence knowledge base
   - name: Kubernetes
     details: |
       Kubernetes is the backbone of the company's IT infrastructure.
-      Everything, from all dot net microservices to ML inference jobs, runs there.
-      
-      A dedicated devops team was responsible for the maintainance of the Kubernetes cluster.
-      However, I've often had to dive into the cluster to troubleshoot issues or tackle complex and custom deployments.
+      Everything, from .NET microservices to ML inference jobs, runs on Kubernetes.
+
+      A dedicated DevOps team was responsible for maintaining the Kubernetes cluster.
+      However, I often had to troubleshoot issues or handle complex and custom deployments.
   - name: Helm
     details: |
-      At some moments, Helm became both my main work tool and my best friend.
-      Deploying a complex application without Helm is a nightmare.
-      
-      Some examples:
-      
-      - Deploying on-premise LLM endpoints with Text Generation Inference (A HuggingFace's open source solution) with GPU acceleration
-      - Deploying an embedding model using Triton Inference Server, a Nvidia's project for model serving.
+      Helm became an essential tool for deploying complex applications.
+      Some examples of its use include:
+      - Deploying on-premise LLM endpoints with Text Generation Inference (Hugging Face's open-source solution) with GPU acceleration
+      - Deploying an embedding model using Triton Inference Server, a NVIDIA project for model serving
   - name: Hexagonal Architecture
-  - name: Clean architecture
+  - name: Clean Architecture
   - name: Pair & Mob Programming
   - name: Argo Workflows
   - name: FastAPI
     details: |
-      All the microservices we developed were based on FastAPI:
-      
+      All the microservices we developed were based on FastAPI, including:
       - Chatbots
-      - A LLM evaluation API (based on Lamaindex)
-      - Prototype of a multi-agent architecture with Deep Agents
+      - An LLM evaluation API (based on LlamaIndex)
+      - A prototype of a multi-agent architecture with Deep Agents
   - name: Snowflake
     details: |
-      Snowflake is the company's main Datalake solution.
-      A DataOps team is responsible for the maintenance of our data warehouse.
-      
-      As AI team, we used Snowflake for:
-      
-      - maintaining the Python assets the entier company use to connect with Snowflake (python library, authentication APIs...)
-      - building a python library that helps Python Developers and Data Scientists to use Snowflake as a vector database
-  - name: Nvidia GPUs
-  - name: OIDC & Oauth2
+      Snowflake is the company's main data lake solution.
+      A DataOps team was responsible for maintaining our data warehouse.
+
+      As the AI team, we used Snowflake for:
+      - Maintaining Python assets used company-wide to connect with Snowflake (Python libraries, authentication APIs, etc.)
+      - Building a Python library to help developers and data scientists use Snowflake as a vector database
+  - name: NVIDIA GPUs
+  - name: OIDC & OAuth2
     details: |
-      At Peaksys, even a simple internal application must be secured with OIDC.
-      A dedicated team was responsible for deploying and maintaining a Keycloak instance.
-      However, this team wasn't responsible for developping the plateforms-specific components to connect to Keycloak.
-      
-      Thus, we had to develop:
-      
+      At Peaksys, even simple internal applications required OIDC security.
+      A dedicated team managed a Keycloak instance, but we were responsible for developing platform-specific components to connect to Keycloak.
+
+      We developed:
       - An OIDC plugin for MLflow
-      - Prototype to connect MCP server with OIDC
-  - name: Code performance optimization
+      - A prototype to connect the MCP server with OIDC
+  - name: Code Performance Optimization
   - name: Linux & Bash
   - name: Git
   - name: Prometheus PromQL & Grafana
     details: |
-      Create custom Grafana dashboards to monitor our platform and our deployed models.
-  - name: Azure DevOps YAML pipelines
+      Created custom Grafana dashboards to monitor our platform and deployed models.
+  - name: Azure DevOps YAML Pipelines
     details: |
-      Developing custom CICD pipelines for both the team's needs and the Data Science team's needs.
-      For instance:
-      
-      - Developing custom CI/CD pipelines for TGI and Triton Inference Server deployments.
-      - Building a CI/CD pipeline to help Data Scientist with Deep Learning model training on our GPU infrastructure
-      - Deploying Helm chart for our platform's credential management.
-  - name: Technical conception
+      Developed custom CI/CD pipelines for both the team's needs and the Data Science team's requirements.
+      Examples include:
+      - CI/CD pipelines for TGI and Triton Inference Server deployments
+      - A CI/CD pipeline to assist data scientists with deep learning model training on our GPU infrastructure
+      - Deploying Helm charts for platform credential management
+  - name: Technical Design
   - name: Machine Learning
     details: |
-      Even though I didn't have to train ML models in my daily job, I needed to have a good understanding of the ML field.
-      I [completed a training course](https://www.linkedin.com/in/thomas-marquis-contact/details/certifications/) provided by DataScientest about ML.
-      I also learnt from myself for years. Machine Learning and AI are subjects I'm very passionate about.
+      Although I didn't train ML models daily, I needed a solid understanding of the field.
+      I completed a [training course](https://www.linkedin.com/in/thomas-marquis-contact/details/certifications/) provided by DataScientest about ML.
+      I also engaged in self-learning over the years, driven by my passion for machine learning and AI.
   - name: MLflow
-    
   - name: Behave
   - name: Streamlit
     details: |
-      All the team members were familiar with Streamlit to quickly develop prototypes or internal tools.
-      
-      Some of the use case I've personally developed with Streamlit in the AI team:
-      - A chatbot interface for a RAG application (as a prototype to showcase the project and helps with local development)
-      - A user interface secured with OIDC and deployed on Kubernets that allows user to manage their personal secret key for Snwoflake.
-      
-      And, you've probably noticed it already, this website you're currently reading is also developed with Streamlit!
+      Our team frequently used Streamlit to quickly develop prototypes or internal tools.
+      Some of my personal use cases included:
+      - A chatbot interface for a RAG application (prototype to showcase the project and aid local development)
+      - A user interface secured with OIDC and deployed on Kubernetes, allowing users to manage their personal secret keys for Snowflake
+
+      This website you're currently reading is also developed with Streamlit!
   - name: Langchain / Langgraph / Deep Agents
     details: |
-      There's a lot of to write about this topics!
-      
-      Let's just give some examples where I used this awsome stack:
-      
-      - Developing a RAG chatbot for FAQ
-      - Prototyping of a multi-agent architecture with Deep Agents and a2a-sdk, with OIDC authentication
-      - Animating coding dojos to help MLE getting familiar with these libraries
+      There's a lot to say about these topics!
+      Here are some examples of how I used this powerful stack:
+      - Developing a RAG chatbot for FAQs
+      - Prototyping a multi-agent architecture with Deep Agents and a2a-sdk, featuring OIDC authentication
+      - Leading coding dojos to help machine learning engineers become familiar with these libraries
   - name: TDD (Test-Driven Development)
 period:
   from: 2022-07
@@ -128,93 +116,87 @@ period:
   format: "%Y-%m"
 location: Bordeaux, France
 ---
-# Tech Lead MLops at Peaksys
+# Tech Lead MLOps at Peaksys
 
 ## Context
 
-MLops is about managing and automating the ML model lifecycle:
-- training
-- model artifact storage, traceability, and versioning
-- deployment and inference
-- monitoring and alerting (e.g. drift detection)
-- retraining
+MLOps focuses on managing and automating the lifecycle of machine learning models, including:
+- **Training**
+- **Model artifact storage, traceability, and versioning**
+- **Deployment and inference**
+- **Monitoring and alerting** (e.g., drift detection)
+- **Retraining**
 
-By ML model, we mean:
-- "classical" machine learning models (e.g. Scikit-Learn-based models, XGBoost, etc.)
-- Deep learning models (e.g. PyTorch, TensorFlow, etc.)
-- LLM and embedding models (e.g. lib transformers, Hugging Face open-weight models, etc.)
+By "ML model," we refer to:
+- "Classical" machine learning models (e.g., Scikit-Learn-based models, XGBoost)
+- Deep learning models (e.g., PyTorch, TensorFlow)
+- LLM and embedding models (e.g., Hugging Face Transformers, open-weight models)
 
-## About the team and my responsibilities
+## About the Team and My Responsibilities
 
-The AI team (aka "CT-IA") was a platform team. Our mission was to build a scalable AI/ML platform that helps all other company's teams to build their own AI/ML products.
-Our "clients" were:
-- the **Data Scientists** teams, providing them with tools to train, deploy, and manage their models
-- the **Machine Learning Engineers**: python developers who work with Data Scientists to industrialize their python code.
-- the **IT teams**, providing them with production-ready LLM endpoints (both on-premise and in the cloud)
+The AI team (aka "CT-IA") was a platform team. Our mission was to build a scalable AI/ML platform to support other teams within the company in developing their AI/ML products. Our "clients" included:
+- **Data Scientists**, providing tools for training, deploying, and managing models
+- **Machine Learning Engineers**, Python developers collaborating with data scientists to industrialize their code
+- **IT Teams**, offering production-ready LLM endpoints (both on-premise and in the cloud)
 
-This team was composed of:
+The team consisted of:
 - A manager
-- A Platform Owner (PO); Which is the equivalent of a Product Owner
-- 3 MLops Engineers
-- A Platform Tech Lead
+- A Platform Owner (equivalent to a Product Owner)
+- 3 MLOps engineers
+- A Platform Tech Lead (myself)
 
-As Platform tech lead, I was responsible for:
-- Making technical decisions about the architecture of our platform
-- Contributing to the development and the run of our platform
+As Platform Tech Lead, my responsibilities included:
+- Making technical decisions about platform architecture
+- Contributing to platform development and operations
 - Ensuring the quality of our assets
 - Conducting R&D projects and technical monitoring
-- In collaboration with the PO, building the roadmap of the platform
-- Mentoring the other team members as well as the Machine Learning Engineers (MLE)
-- Contributing to the MLE hiring process and their onboarding
+- Collaborating with the Platform Owner to build the platform roadmap
+- Mentoring team members and Machine Learning Engineers (MLEs)
+- Participating in the MLE hiring process and onboarding
 
-## Key achievements
+## Key Achievements
 
-**✨ On-premise LLMS**
-
-- Deployed on premise models on Kubernetes with constrained resources (few GPUs).
-  The models were deployed with Text Generation Inference (for LLM) or Triton Inference Server (for other models, like CLIP).
+**✨ On-Premise LLMs**
+- Deployed on-premise models on Kubernetes with limited GPU resources.
+  Models were deployed using Text Generation Inference (for LLMs) or Triton Inference Server (for other models, such as CLIP).
   Deployment was managed with a custom Helm chart.
-  To give access to all our models with a unique endpoint and a simple routing system, I deployed a Traefik proxy in front of them.
-  This proxy acted as an AI Gateway.
+  To provide unified access to all models, I deployed a Traefik proxy as an AI Gateway.
 
 **🧩 MLflow**
-- Deployed an MLflow server on our Kubernetes cluster. 
-  Then, developed an OIDC authentication plugin to secure the MLflow instance with our internal Keycloak.
+- Deployed an MLflow server on our Kubernetes cluster.
+  Developed an OIDC authentication plugin to secure the MLflow instance with our internal Keycloak.
 
-**⛓ CICD pipelines**
-- Built a CI/CD pipelines for ML models training and fast experimentation.
+**⛓ CI/CD Pipelines**
+- Built CI/CD pipelines for ML model training and rapid experimentation.
 
 **☁️ Azure AI Foundry**
-- Managed Azure OpenAI (now known as Azure AI Foundry) models. 
-  Those deployments were used by the whole company for miscellaneous AI projects (both internal and external).
-  At the beginning, manually, then with an APIOps pipeline.
+- Managed Azure OpenAI (now Azure AI Foundry) models, initially manually and later through an APIOps pipeline.
+  These deployments were used company-wide for various AI projects.
 
 **💬 Chatbot**
-- Developed a RAG chatbot with Langchain
+- Developed a RAG chatbot using Langchain.
 
 **🔬 R&D**
-- Conducted R&D over MCP and multi-agnt architecture in python (a2a-sdk).
+- Conducted R&D on MCP and multi-agent architecture in Python (a2a-sdk).
 
-**📢 Mentoring and sharing**
-- Animated coding dojos about Langchain and Langraph
+**📢 Mentoring and Sharing**
+- Led coding dojos on Langchain and Langgraph.
 
-**🪄 AI workflow development**
-- Developing an AI workflow to improve the quality of our product titles and descriptions.
+**🪄 AI Workflow Development**
+- Developed an AI workflow to enhance the quality of product titles and descriptions.
 
+## Other Responsibilities
 
-## Other responsibilities
-
-- Helping with Machine Learning Engineer recruitment (conduction interviews) and onboarding.
-- Reporting and presentations to the management. Breaking down technical concepts and explaining them to non-technical people.
+- Assisted with Machine Learning Engineer recruitment (conducting interviews) and onboarding.
+- Reported to management, translating technical concepts for non-technical stakeholders.
 
 ## About Peaksys
 
-Peaksys is the IT subsidiary of the Cnova Group. This group also owns Cdisocunt, a famous e-commerce platform in France, as well as tow other specialized companies:
+Peaksys is the IT subsidiary of the Cnova Group, which also owns:
+- **Cdiscount**, a prominent e-commerce platform in France
+- **C-Logistics**, providing shipment and logistics solutions
+- **Octopia**, offering a Marketplace-as-a-Service solution
 
-- C-Logistics, that ensures shipments and logistics solutions
-- Octopia, that provides a Marketplace-as-a-service solution
-
-The Peaksys's customers are the other subsidiaries of Cnova Group.
+Peaksys's customers are the other subsidiaries of the Cnova Group.
 
 ![Cnova structure](../assets/images/cnova-graph.png)
-
