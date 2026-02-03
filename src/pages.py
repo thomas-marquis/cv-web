@@ -4,8 +4,8 @@ import polars as pl
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
-from libs.cms.documents.layouts import cards_and_dialogs_layout
-from libs.cms.documents.layouts.tabs import tabs_layout
+from libs.cms.data.layouts import cards_layout
+from libs.cms.documents.layouts import cards_and_dialogs_layout, tabs_layout
 from src.skills import SkillLevelEnum
 
 SKILLS_FILEPATH = "content/skills.csv"
@@ -174,8 +174,7 @@ def other_side_projects() -> None:
 
 @st.fragment
 def other_publications() -> None:
-    st.title(":loudspeaker: Articles and Talks")
-    st.write("TODO: articles and talks")
+    cards_layout(":loudspeaker: Articles and Talks", "content/publications.yaml")
 
 
 @st.fragment
