@@ -6,7 +6,7 @@ from libs.cms.md import MarkdownDoc
 
 
 @st.fragment
-def experience_card(xp_doc: MarkdownDoc, on_click: Callable[[MarkdownDoc], None]) -> None:
+def card(xp_doc: MarkdownDoc, on_click: Callable[[MarkdownDoc], None]) -> None:
     if xp_doc.period and (start := xp_doc.period.start):
         end = xp_doc.period.end
         label = start.strftime("%B %Y - ")
