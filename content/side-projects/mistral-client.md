@@ -1,7 +1,8 @@
 ---
 title: Mistral Client
-section: personal
 weight: 50
+description: |
+  A Go library for interacting with the Mistral API.
 skills:
   - name: Golang
     details: |
@@ -54,17 +55,20 @@ The client also offers advanced features, including:
 
 **Caching:**
 
-When enabled, requests and responses are cached locally. Using a request hash, identical requests are served from the cache, avoiding redundant API calls.
+When enabled, requests and responses are cached locally. Using a request hash, identical requests are served from the
+cache, avoiding redundant API calls.
 
 *MLflow Integration:**
 
-Store your prompts in MLflow instead of hardcoding them. This approach makes prompts reusable and language-agnostic, while also leveraging MLflow’s versioning and tagging for improved traceability and rollback capabilities.
+Store your prompts in MLflow instead of hardcoding them. This approach makes prompts reusable and language-agnostic,
+while also leveraging MLflow’s versioning and tagging for improved traceability and rollback capabilities.
 
 **Upcoming Features:**
 
 * Fake Models:
 
-  For scenarios where generated text or embeddings are irrelevant (e.g., local app testing or UI validation), `genkit-mistral` will provide fake models for chat completion and embeddings.
+  For scenarios where generated text or embeddings are irrelevant (e.g., local app testing or UI validation),
+  `genkit-mistral` will provide fake models for chat completion and embeddings.
 
 ## Learn More
 
@@ -110,7 +114,8 @@ emRes, err := client.Embeddings(ctx, emReq)
 **Request Objects as Input:**
 
 Each endpoint method accepts a request object (e.g., `ChatCompletionRequest` for `Client.ChatCompletion`).
-Users must create this object before calling the method. Builder functions and options are provided to simplify the process.
+Users must create this object before calling the method. Builder functions and options are provided to simplify the
+process.
 
 *Why not use a simple list of messages and options as parameters?*
 

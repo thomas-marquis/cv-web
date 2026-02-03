@@ -5,13 +5,8 @@ from typing import Callable
 import streamlit as st
 
 from ...common import Pager
-from ..datasource.markdown_file import MarkdownDocument, MarkdownLoader
-
-
-@st.cache_data
-def _load_docs(folder_path: Path | str) -> list[MarkdownDocument]:
-    loader = MarkdownLoader(folder_path)
-    return loader.load_all()
+from ..datasource import MarkdownDocument, MarkdownLoader
+from ._load import _load_docs
 
 
 @st.dialog("About this experience", width="medium")
@@ -83,7 +78,7 @@ def cards_and_dialogs_layout(title: str, folder_path: Path | str, pager: Pager) 
     docs = _load_docs(folder_path)
 
     if len(docs) == 0:
-        st.write("No experience yet...")
+        st.write("Nothing to show here... yet...")
         return
 
     for i, xp_doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):

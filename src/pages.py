@@ -1,13 +1,12 @@
-from sqlite3 import ProgrammingError
+import textwrap
 
 import polars as pl
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
-from libs.cms.common import Pager
 from libs.cms.documents.layouts import cards_and_dialogs_layout
+from libs.cms.documents.layouts.tabs import tabs_layout
 from libs.cms.md import MarkdownLoader
-from libs.cms.skill import SkillLevelEnum
 
 SKILLS_FILEPATH = "content/skills.csv"
 
@@ -84,7 +83,7 @@ def cv_skills() -> None:
 
     for f in filters:
         if "type" not in f:
-            raise ProgrammingError("Filter must have a type")
+            raise RuntimeError("Filter must have a type")
 
         match f["type"]:
             case "is_equal":
@@ -148,22 +147,20 @@ def cv_education() -> None:
 
 @st.fragment
 def other_side_projects() -> None:
-    st.title(":rocket: Side projects")
-
-    loader = MarkdownLoader("content/projects")
-    docs = loader.load_by_section("personal")
-
-    nb = len(docs)
-    tabs = st.tabs([f"Side projects ({nb})"] + [d.title for d in docs])
-    with tabs[0]:
-        st.write("TODO: side projects")
-
-        for doc in docs:
-            st.write(f"- {doc.title}")
-
-    for i in range(1, nb + 1):
-        with tabs[i]:
-            st.markdown(docs[i - 1].content, unsafe_allow_html=True)
+    tabs_layout(
+        ":rocket: Side projects",
+        "content/side-projects",
+        _get_page,
+        rendering_hooks={
+            "overview_before": lambda: st.write(
+                textwrap.dedent("""
+            Alongside my professional activity, I like to develop and experiment my own ideas.\n
+            Some of them are pure private project, but sooner, I've started to open-source some of them.\n
+            This list is going to grow over time:
+            """)
+            ),
+        },
+    )
 
 
 @st.fragment
