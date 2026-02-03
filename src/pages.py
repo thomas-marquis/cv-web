@@ -6,11 +6,9 @@ from streamlit.navigation.page import StreamlitPage
 
 from libs.cms.documents.layouts import cards_and_dialogs_layout
 from libs.cms.documents.layouts.tabs import tabs_layout
-from libs.cms.md import MarkdownLoader
+from src.skills import SkillLevelEnum
 
 SKILLS_FILEPATH = "content/skills.csv"
-
-xp_loader = MarkdownLoader("content/experiences")
 
 
 @st.fragment
@@ -127,6 +125,17 @@ def cv_skills() -> None:
             ),
         },
     )
+
+    with st.expander("About skill levels...", expanded=False):
+        for level in SkillLevelEnum:
+            label_col, desc_col, ex_col = st.columns(3)
+            with label_col:
+                st.write(f"**{level.value.level}-{level.value.label}**")
+            with desc_col:
+                st.write(f"{level.value.description}")
+            with ex_col:
+                with st.expander("Examples...", expanded=False):
+                    st.write(level.examples_formatted)
 
 
 @st.fragment

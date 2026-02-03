@@ -1,21 +1,21 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from libs.cms.md import MarkdownDoc, MarkdownLoader
+from libs.cms.documents.datasource import MarkdownDocument, MarkdownLoader
 
 
-class TestMarkdownDoc:
+class TestMarkdownDocument:
     @pytest.fixture
     def make_doc(self, tmp_path):
-        def _make_doc(content: str, filename: str = "doc.md") -> MarkdownDoc:
+        def _make_doc(content: str, filename: str = "doc.md") -> MarkdownDocument:
             path = tmp_path / filename
             path.write_text(content, encoding="utf-8")
-            return MarkdownDoc(path=path, title="Sample")
+            return MarkdownDocument(path=path, title="Sample")
 
         return _make_doc
 
@@ -24,7 +24,7 @@ class TestMarkdownDoc:
             path = tmp_path / "hello-world.md"
             path.write_text("Body", encoding="utf-8")
 
-            doc = MarkdownDoc.from_metadata(path, {})
+            doc = MarkdownDocument.from_metadata(path, {})
 
             assert doc.title == "Hello World"
             assert doc.metadata == {}
@@ -42,7 +42,7 @@ class TestMarkdownDoc:
                 "icon": "star",
             }
 
-            doc = MarkdownDoc.from_metadata(path, metadata)
+            doc = MarkdownDocument.from_metadata(path, metadata)
 
             assert doc.title == "Custom Title"
             assert doc.metadata == {"key": "value"}
@@ -110,28 +110,15 @@ class TestMarkdownLoader:
         dir_path = tmp_path / "markdown"
         dir_path.mkdir()
         (dir_path / "about.md").write_text(
-            "---\n"
-            "title: About\n"
-            "section: about\n"
-            "metadata:\n"
-            "  tag: intro\n"
-            "---\n"
-            "About body",
+            "---\ntitle: About\nsection: about\nmetadata:\n  tag: intro\n---\nAbout body",
             encoding="utf-8",
         )
         (dir_path / "work.md").write_text(
-            "---\n"
-            "title: Work\n"
-            "section: work\n"
-            "icon: briefcase\n"
-            "---\n"
-            "Work body",
+            "---\ntitle: Work\nsection: work\nicon: briefcase\n---\nWork body",
             encoding="utf-8",
         )
         (dir_path / "draft.md").write_text(
-            "---\n"
-            "title: Draft\n"
-            "Body without closing marker",
+            "---\ntitle: Draft\nBody without closing marker",
             encoding="utf-8",
         )
         (dir_path / "plain-text.md").write_text("Plain body", encoding="utf-8")

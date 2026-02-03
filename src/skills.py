@@ -1,15 +1,10 @@
 from collections import namedtuple
 from enum import Enum
-from dataclasses import dataclass
 
-SkillLevel = namedtuple("SkillLevel", ["level", "label",  "description", "examples"])
+SkillLevel = namedtuple("SkillLevel", ["level", "label", "description", "examples"])
 
 
 class SkillLevelEnum(Enum):
-    """
-    Enumeration of technical competence levels, adapted to Thomas Marquis' profile.
-    Inspired by memories #3, #6, #7, #9 (Python, MLOps, Golang, AI).
-    """
     BEGINNER = SkillLevel(
         level=1,
         label="Beginner",
@@ -18,8 +13,8 @@ class SkillLevelEnum(Enum):
             "Following step-by-step tutorials to set up a Kubernetes environment",
             "Writing basic Python scripts without advanced error handling",
             "Using basic Docker commands (e.g., docker run)",
-            "Understanding pgvector concepts without production experience"
-        ]
+            "Understanding pgvector concepts without production experience",
+        ],
     )
 
     BASIC_INTERMEDIATE = SkillLevel(
@@ -30,7 +25,7 @@ class SkillLevelEnum(Enum):
             "Configuring a basic CI/CD pipeline in AzureDevOps (YAML)",
             "Using MLflow for experiment tracking without optimization",
             "Writing simple SQL queries for PostgreSQL",
-        ]
+        ],
     )
 
     INTERMEDIATE = SkillLevel(
@@ -40,8 +35,8 @@ class SkillLevelEnum(Enum):
         examples=[
             "Developing a Golang application with GORM and PostgreSQL",
             "Creating Helm Charts to deploy applications on Kubernetes",
-            "Using Langchain to create a basic chatbot with embeddings"
-        ]
+            "Using Langchain to create a basic chatbot with embeddings",
+        ],
     )
 
     ADVANCED = SkillLevel(
@@ -52,8 +47,8 @@ class SkillLevelEnum(Enum):
             "Developing a Python library for data science workflows",
             "Creating complex AzureDevOps pipelines with YAML templates",
             "Implementing a RAG system with Golang and pgvector",
-            "Deploying Transformers models in production with GPU optimization"
-        ]
+            "Deploying Transformers models in production with GPU optimization",
+        ],
     )
 
     EXPERT = SkillLevel(
@@ -63,7 +58,7 @@ class SkillLevelEnum(Enum):
         examples=[
             "Making strategic technical decisions (e.g., choosing between on-premise vs cloud LLM stacks)",
             "Training teams on scalable architectures and clean code",
-        ]
+        ],
     )
 
     def __str__(self):
@@ -73,12 +68,3 @@ class SkillLevelEnum(Enum):
     def examples_formatted(self):
         """Returns formatted examples for better readability."""
         return "\n- ".join([""] + self.value.examples)
-
-
-@dataclass
-class UsedSkill:
-    name: str
-    """skill's name acts as a unique identifier"""
-
-    details: str | None = None
-    """details about how the skill was used in which context"""
