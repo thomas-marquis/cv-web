@@ -154,9 +154,9 @@ def other_side_projects() -> None:
         rendering_hooks={
             "overview_before": lambda: st.write(
                 textwrap.dedent("""
-            Alongside my professional activity, I like to develop and experiment my own ideas.\n
-            Some of them are pure private project, but sooner, I've started to open-source some of them.\n
-            This list is going to grow over time:
+            Alongside my professional work, I enjoy developing and experimenting with my own ideas.\n
+            Some of these are purely personal projects, but over time, I’ve begun open-sourcing several of them.\n
+            This list will continue to grow as I work on new projects.
             """)
             ),
         },

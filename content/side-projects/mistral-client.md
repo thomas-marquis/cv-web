@@ -39,11 +39,11 @@ skills:
   <img src="../assets/images/mistral-client-logo-tr.png" width="200" alt="mistral-client logo">
 </p>
 
-`mistral-client` is a Go library for interacting with the Mistral API.
+`mistral-client` is a Go library designed to interact with the Mistral API.
 
 ## Overview
 
-This HTTP client provides all the core functionalities of the Mistral API:
+This HTTP client provides access to all core functionalities of the Mistral API:
 
 - Access to main endpoints (chat completion, embeddings, etc.)
 - Support for streaming mode in chat completion
@@ -51,24 +51,24 @@ This HTTP client provides all the core functionalities of the Mistral API:
 - Output format constraints
 - Model discovery
 
-The client also offers advanced features, including:
+The client also includes advanced features, such as:
 
 **Caching:**
 
-When enabled, requests and responses are cached locally. Using a request hash, identical requests are served from the
-cache, avoiding redundant API calls.
+When enabled, requests and responses are cached locally. Identical requests are served from the cache using a request
+hash, reducing redundant API calls.
 
-*MLflow Integration:**
+**MLflow Integration:**
 
-Store your prompts in MLflow instead of hardcoding them. This approach makes prompts reusable and language-agnostic,
-while also leveraging MLflow’s versioning and tagging for improved traceability and rollback capabilities.
+Store your prompts in MLflow instead of hardcoding them. This approach ensures prompts are reusable and
+language-agnostic, while leveraging MLflow’s versioning and tagging for better traceability and rollback capabilities.
 
 **Upcoming Features:**
 
-* Fake Models:
+*Fake Models:*
 
-  For scenarios where generated text or embeddings are irrelevant (e.g., local app testing or UI validation),
-  `genkit-mistral` will provide fake models for chat completion and embeddings.
+For scenarios where generated text or embeddings are irrelevant (e.g., local app testing or UI validation),
+`genkit-mistral` will provide fake models for chat completion and embeddings.
 
 ## Learn More
 
@@ -117,6 +117,6 @@ Each endpoint method accepts a request object (e.g., `ChatCompletionRequest` for
 Users must create this object before calling the method. Builder functions and options are provided to simplify the
 process.
 
-*Why not use a simple list of messages and options as parameters?*
+**Why not use a simple list of messages and options as parameters?**
 
 Using request objects directly offers users greater flexibility and customization.
