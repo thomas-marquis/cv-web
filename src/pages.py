@@ -15,7 +15,11 @@ xp_loader = MarkdownLoader("content/experiences")
 
 @st.fragment
 def overview() -> None:
-    st.title(":man_technologist: Overview")
+    if st.session_state.first_time:
+        st.title("👋 Welcome to my CV!")
+        st.session_state.first_time = False
+    else:
+        st.title("☕️ About me")
 
 
     st.subheader("Last experience")
@@ -37,8 +41,11 @@ def _open_experience(doc: MarkdownDoc) -> None:
         with st.expander(label, expanded=False):
             if skill.details:
                 st.write(skill.details)
-            st.page_link(_get_page("skills", "Skills overview"),
-                         query_params={"skill_name": skill.name, "from_page": "experiences"})
+            with st.popover("About this skill", type="tertiary"):
+                st.write(skill.details)
+                with st.container(horizontal_alignment="right"):
+                    st.page_link(_get_page("skills", "View all related skills ->"),
+                                 query_params={"skill_name": skill.name, "from_page": "experiences"})
 
 
 @st.fragment
@@ -47,33 +54,20 @@ def cv_experiences() -> None:
 
     docs = xp_loader.load_all()
 
+    if len(docs) == 0:
+        st.write("No experience yet...")
+        return
+
     for i, xp_doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):
         experience_card(xp_doc, _open_experience)
-        # if xp_doc.period and (start := xp_doc.period.start):
-        #     end = xp_doc.period.end
-        #     label = start.strftime("%B %Y - ")
-        #     if end:
-        #         label += end.strftime("%B %Y")
-        #     else:
-        #         label += "Present"
-        #     st.subheader(f"-> {label}")
-        #
-        # with st.container(border=True):
-        #     st.subheader(xp_doc.title)
-        #
-        #     if d := xp_doc.description:
-        #         st.write(d)
-        #
-        #     if skills := xp_doc.skills:
-        #         skills_list = ", ".join(skill.name for skill in skills)
-        #         st.caption(f"Skills used: {skills_list}")
-        #
-        #     btn_key = f"details_open_btn_{xp_doc.title}"
-        #     if st.button("Read the full story ->", key=btn_key, type="primary"):
-        #         _open_experience(xp_doc)
 
         if i < len(docs) - 1:
             st.space("small")
+
+    st.divider()
+    with st.container(horizontal_alignment="right"):
+        st.page_link(_get_page("education", "See education ->"),
+                     query_params={"from_page": "experiences"})
 
 
 st.cache_data()
@@ -83,7 +77,7 @@ def _get_skills() -> polars.DataFrame:
         .sort("last_used_year", descending=True)
         .rename({
             "name": "Skill",
-            "level": "Level (see above)",
+            "level": "Level (see bellow)",
             "last_used_year": "Last used",
             "in_industrial_context": "Used in production?",
         })
@@ -95,9 +89,8 @@ def cv_skills() -> None:
     st.title(":hammer_and_wrench: Skills")
 
     if "from_page" in st.query_params:
-        match st.query_params.from_page:
-            case "experiences":
-                st.page_link(_get_page("experiences", "<- Back to experiences"))
+        page_name = st.query_params.from_page
+        st.page_link(_get_page(page_name, f"<- Back to {page_name.title()}"))
 
     skills_df = _get_skills()
 
@@ -105,7 +98,11 @@ def cv_skills() -> None:
         skill_name: str = st.query_params.skill_name
         skills_df = skills_df.filter(skills_df["Skill"] == skill_name)
 
-    with st.expander("About skill levels...", expanded=False):
+    st.dataframe(skills_df, height="content")
+
+
+    st.space("small")
+    with st.expander("About skill levels...", expanded=False, icon=":material/help:"):
         for level in SkillLevelEnum:
             label_col, desc_col, ex_col = st.columns(3)
             with label_col:
@@ -117,13 +114,13 @@ def cv_skills() -> None:
                     st.write(level.examples_formatted)
 
 
-    st.dataframe(skills_df, height=600)
-
-
 @st.fragment
 def cv_education() -> None:
     st.title(":man_student: Education")
-    st.write("TODO: education career")
+
+    if "from_page" in st.query_params:
+        page_name = st.query_params.from_page
+        st.page_link(_get_page(page_name, f"<- Back to {page_name.title()}"))
 
 @st.fragment
 def other_side_projects() -> None:

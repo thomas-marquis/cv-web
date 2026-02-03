@@ -56,15 +56,15 @@ The client also offers advanced features, including:
 
 When enabled, requests and responses are cached locally. Using a request hash, identical requests are served from the cache, avoiding redundant API calls.
 
+*MLflow Integration:**
+
+Store your prompts in MLflow instead of hardcoding them. This approach makes prompts reusable and language-agnostic, while also leveraging MLflow’s versioning and tagging for improved traceability and rollback capabilities.
+
 **Upcoming Features:**
 
 * Fake Models:
 
   For scenarios where generated text or embeddings are irrelevant (e.g., local app testing or UI validation), `genkit-mistral` will provide fake models for chat completion and embeddings.
-
-* MLflow Integration:
-
-  Store your prompts in MLflow instead of hardcoding them. This approach makes prompts reusable and language-agnostic, while also leveraging MLflow’s versioning and tagging for improved traceability and rollback capabilities.
 
 ## Learn More
 

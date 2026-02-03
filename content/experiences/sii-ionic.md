@@ -1,10 +1,19 @@
 ---
 title: "Mobile App Development at SII"
-description: "Ionic / Cordova mobile app developement for a pre-sales project. A meeting room booking app."
+image: "content/assets/images/ionic-logo.png"
+description: |
+  Ionic / Cordova mobile app development for a pre-sales project. A meeting room booking app.
 weight: 15
 skills:
   - name: Ionic / Cordova
+    details: |
+      Cordova enables cross-platform hybrid app development in JavaScript.
+      Ionic is a graphical framework that provide a rich set of components and features for mobile app development.
   - name: Angular
+    details: |
+      I wrote the application content itself with Angular. 
+      At this time, it was the only available frontend framework for Cordova and Ionic.
+      It's now possible to use React or other frameworks.
   - name: Git
 period:
   from: "2018-01"

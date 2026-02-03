@@ -1,5 +1,13 @@
 ---
 title: "Python Developer"
+description: |
+  Industrializing Data Science projects, developing python libraries and tools for Data Scientists, 
+  mentoring them on our technical stack and good practices 
+  (clean and hexagonal architecture, TDD, BDD)
+  
+  - Designed and developed a Python framework for building data science workflows
+  - Developed, optimized and/or refactored Python ML inference jobs
+  - Developed a security Python library implementing the OpenID Connect protocol
 weight: 30
 image: "content/assets/images/python-logo.png"
 skills:

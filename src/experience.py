@@ -5,6 +5,7 @@ import streamlit as st
 from libs.cms.md import MarkdownDoc
 
 
+@st.fragment
 def experience_card(xp_doc: MarkdownDoc, on_click: Callable[[MarkdownDoc], None]) -> None:
     if xp_doc.period and (start := xp_doc.period.start):
         end = xp_doc.period.end
@@ -13,13 +14,14 @@ def experience_card(xp_doc: MarkdownDoc, on_click: Callable[[MarkdownDoc], None]
             label += end.strftime("%B %Y")
         else:
             label += "Present"
-        st.subheader(f"-> {label}")
+        st.subheader(f":material/line_start_circle: {label} :material/line_end_circle:")
 
     with st.container(border=True):
-        st.subheader(xp_doc.title) # TODO: center
+        st.subheader(xp_doc.title)
 
         if xp_doc.image_path:
-            st.image(xp_doc.image_path, width=200)
+            with st.container(horizontal_alignment="center"):
+                st.image(xp_doc.image_path, width=250)
 
         if d := xp_doc.description:
             st.write(d)
@@ -28,6 +30,7 @@ def experience_card(xp_doc: MarkdownDoc, on_click: Callable[[MarkdownDoc], None]
             skills_list = ", ".join(skill.name for skill in skills)
             st.caption(f"Skills used: {skills_list}")
 
-        btn_key = f"details_open_btn_{xp_doc.title}"
-        if st.button("Read the full story ->", key=btn_key, type="primary"):
-            on_click(xp_doc)
+        with st.container(horizontal_alignment="right"):
+            btn_key = f"details_open_btn_{xp_doc.title}"
+            if st.button("Read the full story ->", key=btn_key, type="primary"):
+                on_click(xp_doc)

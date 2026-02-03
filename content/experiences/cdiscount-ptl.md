@@ -1,6 +1,13 @@
 ---
 title: Tech Lead MLops at Peaksys
-description: July 2022 -> December 2025. Platform Tech lead for the AI team at Peaksys.
+description: |
+  Deploying the MLOps approach, designing and building a scalable AI/ML platform, 
+  hiring and mentoring python developers, making code reviews and technical choices, R&D.
+  
+  - Deployed MLflow as a model registry, developed a python client and CICD pipelines
+  - Deployed LLMs and embedding models both on Azure and on-premise (with TGI and Triton Inference Server)
+  - Developed a RAG application with FastAPI/Langchain/PgVector
+  - Prototyping AI multi-agent architecture with Langchain, Langgraph, a2a-sdk and mcp
 image: "content/assets/images/python-logo.png"
 weight: 40
 skills:

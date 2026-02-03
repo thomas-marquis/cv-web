@@ -1,5 +1,5 @@
 ---
-title: "Web Developer at Xperis (Six-Month Internship)"
+title: "Web Developer at Xperis (Internship)"
 description: |
   This internship marked the final six months of my studies. 
   My mission was to enhance a monitoring tool for the Cloverleaf EAI platform by developing a metric dashboard.

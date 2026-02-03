@@ -4,7 +4,9 @@ from src import pages
 
 
 def main() -> None:
-    st.set_page_config(page_title="CV Portfolio", page_icon=":material/business_center:")
+    st.set_page_config(page_title="CV Portfolio", page_icon="☕️")
+
+    st.session_state.setdefault("first_time", True)
 
     pg = {
         "": [

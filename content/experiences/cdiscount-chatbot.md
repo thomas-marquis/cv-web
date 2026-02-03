@@ -1,6 +1,11 @@
 ---
 title: "Web and Chatbot Developer at Cdiscount"
-description: "Web and chatbot development for Cdiscount. Worked on a chatbot using Dialogflow and Spring Boot."
+description: |
+  Development of Google Assistant and Messenger chatbots (using Dialogflow and Spring Boot), 
+  and front/back development on the Cdiscount’s website (ReactJS) and mobile app (React Native).
+  
+  - Deployed chatbots helping users to find products
+  - Developed a new navigation system on the mobile website and app
 image: "content/assets/images/java-logo.png"
 weight: 20
 skills:
