@@ -1,5 +1,5 @@
 ---
-title: "Mobile App Development at SII"
+title: "Mobile App Development at [SII](https://sii-group.com/en-FR)"
 image: "content/assets/images/ionic-logo.png"
 description: |
   Ionic / Cordova mobile app development for a pre-sales project. A meeting room booking app.

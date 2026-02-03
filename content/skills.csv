@@ -12,13 +12,13 @@ Argo Workflows,,2024,true,https://argo-workflows.readthedocs.io/en/latest/
 FastAPI,,2025,true,https://fastapi.tiangolo.com/
 Snowflake,,2025,true,https://docs.snowflake.com/en/developer-guide/python-connector/python-connector
 Nvidia GPUs,,2025,true,https://docs.nvidia.com/cuda/cuda-programming-guide/index.html
-OIDC & Oauth2,,2025,true,https://openid.net/specs/openid-connect-core-1_0.html
-Code performance optimization,,2024,true,
+OIDC & OAuth2,,2025,true,https://openid.net/specs/openid-connect-core-1_0.html
+Code Performance Optimization,,2024,true,
 Linux & Bash,,2026,true,
 Git,,2026,true,
 Prometheus PromQL & Grafana,,2025,true,https://prometheus.io/docs/prometheus/latest/querying/basics/
-Azure DevOps YAML pipelines,,2025,true,https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops
-Technical conception,,2025,true,
+Azure DevOps YAML Pipelines,,2025,true,https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops
+Technical Design,,2025,true,
 Machine Learning,,2025,true,
 MLflow,,2026,true,https://mlflow.org/docs/latest/ml/getting-started/
 Java,,2020,true,
@@ -54,3 +54,4 @@ Streamlit,,2026,true,https://docs.streamlit.io/develop/concepts
 Langchain / Langgraph / Deep Agents,,2025,true,https://docs.langchain.com/oss/python/deepagents/overview
 Ionic / Cordova,,2018,false,https://ionicframework.com/docs/
 Angular,,2023,false,https://angular.dev/overview
+Pants,,2025,true,https://www.pantsbuild.org/stable/docs/introduction/welcome-to-pants

@@ -1,20 +1,19 @@
 ---
-title: "Python Developer"
+title: "Python Developer at [Peaksys](https://www.linkedin.com/company/peaksys/posts/?feedView=all)"
 description: |
-  Industrializing Data Science projects, developing python libraries and tools for Data Scientists, 
-  mentoring them on our technical stack and good practices 
-  (clean and hexagonal architecture, TDD, BDD)
-  
+  Industrializing Data Science projects, developing Python libraries and tools for Data Scientists,
+  and mentoring them on our technical stack and best practices (clean and hexagonal architecture, TDD, BDD).
+
   - Designed and developed a Python framework for building data science workflows
-  - Developed, optimized and/or refactored Python ML inference jobs
+  - Developed, optimized, and/or refactored Python ML inference jobs
   - Developed a security Python library implementing the OpenID Connect protocol
 weight: 30
 image: "content/assets/images/python-logo.png"
 skills:
   - name: Python
-  - name: Python Data Science libraries
+  - name: Python Data Science Libraries
     details: |
-      Most of our Data Science jobs are based on pandas, numpy, scikit-learn, and other libraries.
+      Most of our Data Science projects relied on libraries such as pandas, numpy, scikit-learn, and others.
   - name: Docker
   - name: Kubernetes
   - name: Helm
@@ -23,17 +22,16 @@ skills:
   - name: Argo Workflows
   - name: FastAPI
   - name: Snowflake
-  - name: OIDC & Oauth2
-  - name: Code performance optimization
+  - name: OIDC & OAuth2
+  - name: Code Performance Optimization
   - name: Linux & Bash
   - name: Git
   - name: Prometheus PromQL & Grafana
-  - name: Azure DevOps YAML pipelines
-  - name: Technical conception
-  - name: User interviews
+  - name: Azure DevOps YAML Pipelines
+  - name: Technical Design
+  - name: User Interviews
   - name: Behave
-  - name: Clean architecture
-  - name: Behave
+  - name: Clean Architecture
   - name: TDD (Test-Driven Development)
 period:
   from: 2020-03
@@ -41,50 +39,58 @@ period:
   format: "%Y-%m"
 location: Bordeaux, France
 ---
-# Python expert for Data Science
+# Python Expert for Data Science
+
+## Context
+
+After leaving the Chatbot Team, I joined a team focused on **industrializing Data Science projects**. 
+My role was to bridge the gap between Data Scientists and production environments, ensuring that their work was scalable, maintainable, and efficient. 
+I developed Python libraries, frameworks, and tools to streamline workflows, improve security, and optimize performance.
+
+During this mission, as well as the previous ones, I was employed by [SII](https://sii-group.com/en-FR) and worked at Peaksys as a full-time consultant.
 
 ## Achievements
 
-**🛠 Python libraries development**
+**🛠 Python Libraries Development**
+- Developed Python libraries to simplify interactions with our information system (databases, observability, file storage, etc.).
+- Focused on creating reusable, modular, and well-documented code to empower Data Scientists.
 
-Developed python libraries to simplify connection with parts of our information system (database, observability, file storage, ...)
-
-**🧰 Framework development**
-
-Designed and developed a custom framework based on luigi to help Data Scientists to write python workflows
+**🧰 Framework Development**
+- Designed and developed a **custom framework** based on Luigi to help Data Scientists write Python workflows efficiently.
+- The framework enabled better organization, reproducibility, and scalability of data science projects.
+- It also provided generic components to avoid code duplication and accelerate development.
 
 **🧩 Argo Workflows**
+- Deployed **Argo Workflows** on Kubernetes, allowing Data Science teams to split large workflows into smaller, manageable steps.
+- Enabled scheduling and parallel execution of workflows across multiple Kubernetes pods, improving efficiency and resource utilization.
 
-- Deployed Argo Workflows on Kubernetes to give Data Science teams the possibility to split their bigger workflows into multiple steps and schedule them on multiple pods on Kubernetes
+**🔑 Security and Authentication**
+- Developed a **security library** implementing the **OpenID Connect (OIDC)** protocol for human-to-machine communication and **OAuth2** for machine-to-machine interactions.
+- Ensured secure access to internal tools and resources, aligning with company-wide security standards.
+- To tackle the complexity of this library, I split it into multiple smaller ones and managed a mono-repository with [Pants](https://www.pantsbuild.org/stable/docs/introduction/welcome-to-pants)
 
-**🔑 Security and authentication**
+**❄️ Snowflake Migration**
+- Assisted in migrating all **Data Science Python algorithms** to **Snowflake**.
+- Used this opportunity to refactor and optimize existing Python projects, improving performance and maintainability.
 
-- Developed an authentication library that implements OpenID Connect protocol for human-to-machine communication, and OAuth2 for machine-to-machine.
+**🪐 JupyterHub Deployment**
+- Deployed a **JupyterHub server** on Kubernetes, providing Data Scientists with secure access to their notebook sessions.
+- Each user session ran in a dedicated Kubernetes pod with custom resource allocation.
+- Implemented a robust **Keycloak-based authentication system** to prevent unauthorized access.
 
-**❄️ Snowflake migration**
+**👩‍🏫 CI/CD Training**
+- Created and led **training sessions** for Data Scientists on **CI/CD best practices**.
+- Focused on automating testing, deployment, and monitoring to ensure smooth and reliable workflows.
 
-- Helped to migrate all Data Science python algorithms to Snowflake. I took advantage of this migration to refactor most of the python projects.
+**📏 Metrics Exporter**
+- Developed an **ephemeral-storage metric exporter** for Kubernetes, enabling better monitoring and resource management.
 
-**🪐 Jupyterhub**
+**🧶 Performance Optimizations**
+- Optimized the performance of Python batch jobs by identifying bottlenecks and implementing improvements:
+  - Better batching strategies
+  - Faster libraries and algorithms
+  - Efficient resource utilization
 
-- Deployed a Jupyterhub server on Kubernetes. The users (Data Scientists) can connect securely to their own notebook session.
-  Each session starts a dedicated pod with custom resources allocation on Kuberntes.
-  A robust authentication system based on Keycloak is in place to prevent unauthorized access to the notebooks.
-
-**👩‍🏫 CICD training**
-- Created and animated training sessions for Data Scientists on CICD
-
-**📏 Metrics exporter**
-- Created an ephemeral-storage metric exporter for Kubernetes
-
-**🧶 Optimizations**
-- Optimized the performance of some of the python batch jobs, identifying bottlenecks and implementing optimizations (better batching, using faster libraries or algorithms...).
-
-
-**📦 Docker images**
-Developed standard internal Docker images for all python versions, managed the version lifecycle and built the pipeline to rebuild images on a regular basis.
-
-
-## Focus
-
-
+**📦 Docker Images**
+- Developed **standard internal Docker images** for all Python versions used in the company.
+- Managed the **version lifecycle** and built automated pipelines to regularly rebuild and update images.
