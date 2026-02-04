@@ -1,12 +1,15 @@
+import datetime as dt
 import textwrap
 
 import polars as pl
 import streamlit as st
 from streamlit.navigation.page import StreamlitPage
 
+from libs.cms import back_nav_link
 from libs.cms.data.layouts import cards_layout
 from libs.cms.documents.layouts import cards_and_dialogs_layout, tabs_layout
-from src.skills import SkillLevelEnum
+from libs.cms.documents.layouts.tabs import RenderingHooks
+from src.skills import SkillLevelEnum, get_skill_info, load_skills_data
 
 SKILLS_FILEPATH = "content/skills.csv"
 
@@ -24,11 +27,11 @@ def overview() -> None:
 
 @st.fragment
 def cv_experiences() -> None:
-    if "from_page" in st.query_params:
-        page_name = st.query_params.from_page
-        st.page_link(_get_page(page_name, f"<- Back to {page_name.title()}"))
+    back_nav_link(_get_page)
 
-    cards_and_dialogs_layout(":briefcase: Professional Experiences", "content/experiences", _get_page)
+    cards_and_dialogs_layout(
+        ":briefcase: Professional Experiences", "content/experiences", {"on_skill_popover": _render_skill_popover}
+    )
 
     st.divider()
     with st.container(horizontal_alignment="right"):
@@ -38,22 +41,52 @@ def cv_experiences() -> None:
         )
 
 
-@st.cache_data()
-def _load_data(path: str) -> pl.DataFrame:
-    return pl.read_csv(path, has_header=True).cast(
-        {
-            "level": pl.Int64,
-            "last_used_year": pl.Int64,
-            "in_industrial_context": pl.Boolean,
-        }
-    )
+def _render_skill_popover(skill_name: str) -> None:
+    skill = get_skill_info(skill_name)
+    if skill is None:
+        return
+
+    nb_cols = 0
+    if skill.level:
+        nb_cols += 1
+    if skill.link:
+        nb_cols += 1
+
+    cols = st.columns(nb_cols)
+
+    if skill.level:
+        with cols[0]:
+            st.metric(
+                "Level", skill.level.level, None, help=f"{skill.level.label}: {skill.level.description}", format="%d/5"
+            )
+
+    if skill.link:
+        with cols[1]:
+            st.link_button("About :material/open_in_new:", skill.link, type="secondary")
+
+    if skill.last_used_year:
+        msg = f"Used for the last time in {skill.last_used_year}"
+        if skill.in_industrial_context is not None and not skill.in_industrial_context:
+            msg += " (never in production)"
+        st.caption(msg)
+
+    with st.container(horizontal_alignment="right"):
+        st.page_link(
+            _get_page("skills", "View all related skills ->"),
+            query_params={
+                "skill_name": skill.name,
+                "from_page": "experiences",
+            },
+        )
 
 
 @st.fragment
 def cv_skills() -> None:
+    back_nav_link(_get_page)
+
     st.title(":hammer_and_wrench: Skills")
 
-    data = _load_data(SKILLS_FILEPATH)
+    data = load_skills_data(SKILLS_FILEPATH)
 
     filters = []
 
@@ -69,12 +102,16 @@ def cv_skills() -> None:
             if prod_only is not None:
                 filters.append({"type": "is_equal", "column": "in_industrial_context", "value": prod_only})
         with cols[1]:
+            max_age = st.slider("Show skills used after...", 2017, dt.date.today().year, 2017, step=1, key="max_age")
+            filters.append({"type": "is_greater_or_equal", "column": "last_used_year", "value": max_age})
+
             skill_name = st.text_input("Filter by skill name", key="skill_name")
             if skill_name:
                 filters.append({"type": "is_match_str", "column": "name", "value": skill_name})
 
     if "skill_name" in st.query_params:
-        filters.append({"type": "is_equal", "column": "name", "value": st.query_params.skill_name})
+        filters.append({"type": "is_match_str", "column": "name", "value": st.query_params.skill_name})
+        st.query_params.pop("skill_name", None)
 
     if st.button("Reset filters", key="reset_filters"):
         filters = []
@@ -88,8 +125,10 @@ def cv_skills() -> None:
                 data = data.filter(pl.col(f["column"]) == f["value"])
             case "is_match_str":
                 data = data.filter(pl.col(f["column"]).str.contains_any([f["value"]], ascii_case_insensitive=True))
+            case "is_greater_or_equal":
+                data = data.filter(pl.col(f["column"]) >= f["value"])
             case _:
-                raise ValueError(f"Unknown filter type: {f['type']}")
+                raise RuntimeError(f"Unknown filter type: {f['type']}")
 
     st.dataframe(
         data,
@@ -140,9 +179,7 @@ def cv_skills() -> None:
 
 @st.fragment
 def cv_education() -> None:
-    if "from_page" in st.query_params:
-        page_name = st.query_params.from_page
-        st.page_link(_get_page(page_name, f"<- Back to {page_name.title()}"))
+    back_nav_link(_get_page)
 
     cards_and_dialogs_layout(":man_student: Education", "content/education", _get_page)
 
@@ -156,29 +193,35 @@ def cv_education() -> None:
 
 @st.fragment
 def other_side_projects() -> None:
-    tabs_layout(
-        ":rocket: Side projects",
-        "content/side-projects",
-        _get_page,
-        rendering_hooks={
-            "overview_before": lambda: st.write(
-                textwrap.dedent("""
+    back_nav_link(_get_page)
+
+    hooks: RenderingHooks = {
+        "overview_before": lambda: st.write(
+            textwrap.dedent("""
             Alongside my professional work, I enjoy developing and experimenting with my own ideas.\n
             Some of these are purely personal projects, but over time, I’ve begun open-sourcing several of them.\n
             This list will continue to grow as I work on new projects.
             """)
-            ),
-        },
+        ),
+    }
+
+    tabs_layout(
+        ":rocket: Side projects",
+        "content/side-projects",
+        _get_page,
+        rendering_hooks=hooks,
     )
 
 
 @st.fragment
 def other_publications() -> None:
+    back_nav_link(_get_page)
     cards_layout(":loudspeaker: Articles and Talks", "content/publications.yaml")
 
 
 @st.fragment
 def info_contact() -> None:
+    back_nav_link(_get_page)
     st.title(":mailbox: Contact")
     st.write("TODO: contact info and form")
 

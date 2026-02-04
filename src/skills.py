@@ -1,5 +1,9 @@
 from collections import namedtuple
+from dataclasses import dataclass
 from enum import Enum
+
+import polars as pl
+import streamlit as st
 
 SkillLevel = namedtuple("SkillLevel", ["level", "label", "description", "examples"])
 
@@ -68,3 +72,45 @@ class SkillLevelEnum(Enum):
     def examples_formatted(self):
         """Returns formatted examples for better readability."""
         return "\n- ".join([""] + self.value.examples)
+
+
+@dataclass
+class SkillInfo:
+    name: str
+    level: SkillLevel
+    last_used_year: int | None = None
+    in_industrial_context: bool = False
+    link: str | None = None
+
+
+@st.cache_data()
+def load_skills_data(path: str) -> pl.DataFrame:
+    return pl.read_csv(path, has_header=True).cast(
+        {
+            "level": pl.Int64,
+            "last_used_year": pl.Int64,
+            "in_industrial_context": pl.Boolean,
+        }
+    )
+
+
+@st.cache_data()
+def get_skill_info(skill_name: str) -> SkillInfo | None:
+    all_skills = load_skills_data("content/skills.csv")
+    skill_row = all_skills.filter(pl.col("name").str.to_lowercase() == skill_name.lower())
+    if len(skill_row) == 0:
+        return None
+    if len(skill_row) > 1:
+        skill_row = skill_row.head(1)
+
+    level = (
+        tmp[0] if (tmp := [it.value for it in SkillLevelEnum if it.value.level == skill_row["level"].item()]) else None
+    )
+
+    return SkillInfo(
+        name=skill_row["name"].item(),
+        last_used_year=skill_row["last_used_year"].item(),
+        level=level,
+        in_industrial_context=skill_row["in_industrial_context"].item(),
+        link=skill_row["link"].item(),
+    )

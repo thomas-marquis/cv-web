@@ -1,16 +1,21 @@
 from operator import attrgetter
 from pathlib import Path
-from typing import Callable
+from typing import Callable, TypedDict
 
 import streamlit as st
 
-from ...common import Pager
-from ..datasource import MarkdownDocument, MarkdownLoader
+from ..datasource import MarkdownDocument
 from ._load import _load_docs
+
+type SkillName = str
+
+
+class RenderingHooks(TypedDict, total=False):
+    on_skill_popover: Callable[[SkillName], None]
 
 
 @st.dialog("About this experience", width="medium")
-def _open_experience(doc: MarkdownDocument, pager: Pager) -> None:
+def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], None]) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
 
     if not doc.skills:
@@ -25,22 +30,23 @@ def _open_experience(doc: MarkdownDocument, pager: Pager) -> None:
             if skill.details:
                 st.write(skill.details)
             with st.popover("About this skill", type="tertiary"):
-                st.write(skill.details)
-                with st.container(horizontal_alignment="right"):
-                    st.page_link(
-                        pager("skills", "View all related skills ->"),
-                        query_params={
-                            "skill_name": skill.name,
-                            "from_page": "experiences",
-                        },
-                    )
+                on_skill_popover(skill.name)
+                # st.write(skill.details)
+                # with st.container(horizontal_alignment="right"):
+                #     st.page_link(
+                #         pager("skills", "View all related skills ->"),
+                #         query_params={
+                #             "skill_name": skill.name,
+                #             "from_page": "experiences",
+                #         },
+                #     )
 
 
 @st.fragment
 def card(
     doc: MarkdownDocument,
-    pager: Pager,
-    on_click: Callable[[MarkdownDocument, Pager], None],
+    on_click: Callable[[MarkdownDocument, Callable[[SkillName], None]], None],
+    rendering_hooks: RenderingHooks | None = None,
 ) -> None:
     if doc.period and (start := doc.period.start):
         end = doc.period.end
@@ -68,11 +74,13 @@ def card(
         with st.container(horizontal_alignment="right"):
             btn_key = f"details_open_btn_{doc.title}"
             if st.button("Read the full story ->", key=btn_key, type="primary"):
-                on_click(doc, pager)
+                on_click(doc, rendering_hooks.get("on_skill_popover"))
 
 
 @st.fragment
-def cards_and_dialogs_layout(title: str, folder_path: Path | str, pager: Pager) -> None:
+def cards_and_dialogs_layout(
+    title: str, folder_path: Path | str, rendering_hooks: RenderingHooks | None = None
+) -> None:
     st.title(title)
 
     docs = _load_docs(folder_path)
@@ -82,7 +90,7 @@ def cards_and_dialogs_layout(title: str, folder_path: Path | str, pager: Pager) 
         return
 
     for i, xp_doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):
-        card(xp_doc, pager, _open_experience)
+        card(xp_doc, _open_dialog, rendering_hooks=rendering_hooks)
 
         if i < len(docs) - 1:
             st.space("small")
