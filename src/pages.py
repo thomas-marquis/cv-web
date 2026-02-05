@@ -223,7 +223,6 @@ def other_publications() -> None:
 def info_contact() -> None:
     back_nav_link(_get_page)
     st.title(":mailbox: Contact")
-    st.write("TODO: contact info and form")
 
 
 def _get_page(name: str, label: str | None = None) -> StreamlitPage:
