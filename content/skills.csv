@@ -1,57 +1,60 @@
-name,level,last_used_year,in_industrial_context,link,highlighted
-Python,5,2026,true,,true
-Python Data Science libraries,4,2025,true,https://github.com/r0f1/datascience,""
-Docker,4,2026,true,,true
-Azure AI Foundry,4,2025,true,https://ai.azure.com/,
-Golang,4,2026,false,https://go.dev/learn/,true
-Kubernetes,4,2025,true,,true
-Helm,5,2025,true,https://helm.sh/docs/,true
-Hexagonal Architecture,5,2025,true,https://alistair.cockburn.us/hexagonal-architecture,
-Pair & Mob Programming,4,2025,true,,
-Argo Workflows,3,2024,true,https://argo-workflows.readthedocs.io/en/latest/,
-FastAPI,5,2025,true,https://fastapi.tiangolo.com/,true
-Snowflake,3,2025,true,https://docs.snowflake.com/en/developer-guide/python-connector/python-connector,true
-Nvidia GPUs,2,2025,true,https://docs.nvidia.com/cuda/cuda-programming-guide/index.html,
-OIDC & OAuth2,3,2025,true,https://openid.net/specs/openid-connect-core-1_0.html,
-Code Performance Optimization,4,2024,true,,
-Linux & Bash,4,2026,true,,
-Git,4,2026,true,,
-Prometheus PromQL & Grafana,4,2025,true,https://prometheus.io/docs/prometheus/latest/querying/basics/,
-Azure DevOps YAML Pipelines,4,2025,true,https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops,""
-Technical Design,4,2025,true,,
-Machine Learning,3,2025,true,,
-MLflow,5,2026,true,https://mlflow.org/docs/latest/ml/getting-started/,true
-Java,4,2020,true,,
-Spring Boot,4,2020,true,https://spring.io/projects/spring-boot,
-ReactJS,4,2022,true,https://react.dev/,
-React Native,3,2020,true,https://reactnative.dev/,
-Dialogflow (ES),4,2020,true,https://docs.cloud.google.com/dialogflow/es/docs,
-Kotlin,3,2024,true,,
-Couchbase,3,2021,true,,
-MS SQL Server,2,2020,true,,
-TDD (Test-Driven Development),5,2026,true,,""
-Mesos & Marathon,2,2020,true,https://aventer-ug.github.io/marathon/index.html,
-CSS,3,2025,true,,
-Struts 2,3,2017,true,https://struts.apache.org/index.html,
-JavaScript,4,2026,true,,
-JQuery,3,2017,true,,
-D3js,3,2017,true,https://d3js.org/,
-Cloverleaf EAI,2,2017,true,,
-R,4,2023,false,https://www.r-project.org/,
-Subversion,2,2017,true,https://subversion.apache.org/,
-Vertx,2,2020,true,https://vertx.io/,
-SQLite,3,2025,true,,
-User interviews,3,2021,true,,
-Needs analysis,3,2017,true,,
-Independent Work,4,2026,true,,
-Mockito,4,2020,true,https://site.mockito.org/,
-Jasmine,4,2023,true,https://jasmine.github.io/,
-Cucumber,2,2020,true,https://cucumber.io/,
-JUnit,4,2020,true,https://junit.org/,
-Behave,4,2025,true,https://behave.readthedocs.io/en/latest/,
-Clean architecture,5,2026,true,https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html,true
-Streamlit,5,2026,true,https://docs.streamlit.io/develop/concepts,
-Langchain / Langgraph / Deep Agents,4,2025,true,https://docs.langchain.com/oss/python/deepagents/overview,true
-Ionic / Cordova,3,2018,false,https://ionicframework.com/docs/,
-Angular,3,2023,false,https://angular.dev/overview,
-Pants,4,2025,true,https://www.pantsbuild.org/stable/docs/introduction/welcome-to-pants,
+name,level,last_used_year,in_industrial_context,link,highlighted,category
+Python,5,2026,true,,true,Languages
+Python Data Science libraries,4,2025,true,https://github.com/r0f1/datascience,,Data & AI
+Docker,4,2026,true,,true,DevOps
+Azure AI Foundry,4,2025,true,https://ai.azure.com/,,Data & AI
+Golang,4,2026,false,https://go.dev/learn/,true,Languages
+Kubernetes,4,2025,true,,true,DevOps
+Helm,4,2025,true,https://helm.sh/docs/,true,DevOps
+Hexagonal Architecture,4,2025,true,https://alistair.cockburn.us/hexagonal-architecture,,Architecture & Design
+Pair & Mob Programming,4,2025,true,,,Best Practices
+Argo Workflows,3,2024,true,https://argo-workflows.readthedocs.io/en/latest/,,DevOps
+FastAPI,4,2025,true,https://fastapi.tiangolo.com/,true,Web Frameworks
+Snowflake,3,2025,true,https://docs.snowflake.com/en/developer-guide/python-connector/python-connector,true,Data & AI
+Nvidia GPUs,2,2025,true,https://docs.nvidia.com/cuda/cuda-programming-guide/index.html,,Infrastructure
+OIDC & OAuth2,3,2025,true,https://openid.net/specs/openid-connect-core-1_0.html,,Security
+Code Performance Optimization,4,2024,true,,,Best Practices
+Linux & Bash,4,2026,true,,,DevOps
+Git,4,2026,true,,,DevOps
+Prometheus PromQL & Grafana,4,2025,true,https://prometheus.io/docs/prometheus/latest/querying/basics/,,Observability
+Azure DevOps YAML Pipelines,4,2025,true,https://learn.microsoft.com/en-us/azure/devops/pipelines/?view=azure-devops,,DevOps
+Technical Design,4,2025,true,,,Architecture & Design
+Machine Learning,3,2025,true,,,Data & AI
+MLflow,5,2026,true,https://mlflow.org/docs/latest/ml/getting-started/,true,MLOps
+Java,4,2020,true,,,Languages
+Spring Boot,4,2020,true,https://spring.io/projects/spring-boot,,Web Frameworks
+ReactJS,4,2022,true,https://react.dev/,,Web Frameworks
+React Native,3,2020,true,https://reactnative.dev/,,Web Frameworks
+Dialogflow (ES),4,2020,true,https://docs.cloud.google.com/dialogflow/es/docs,,Data & AI
+Kotlin,3,2024,true,,,Languages
+Couchbase,3,2021,true,,,Databases
+MS SQL Server,2,2020,true,,,Databases
+TDD (Test-Driven Development),5,2026,true,,,Best Practices
+Mesos & Marathon,2,2020,true,https://aventer-ug.github.io/marathon/index.html,,DevOps
+CSS,3,2025,true,,,Web Frameworks
+Struts 2,3,2017,true,https://struts.apache.org/index.html,,Web Frameworks
+JavaScript,4,2026,true,,,Languages
+JQuery,3,2017,true,,,Web Frameworks
+D3js,3,2017,true,https://d3js.org/,,Web Frameworks
+Cloverleaf EAI,2,2017,true,,,Infrastructure
+R,3,2023,false,https://www.r-project.org/,,Languages
+Subversion,2,2017,true,https://subversion.apache.org/,,DevOps
+Vertx,2,2020,true,https://vertx.io/,,Web Frameworks
+SQLite,3,2025,true,,,Databases
+User interviews,3,2021,true,,,Soft Skills
+Needs analysis,3,2017,true,,,Soft Skills
+Independent Work,4,2026,true,,,Soft Skills
+Mockito,4,2020,true,https://site.mockito.org/,,Testing
+Jasmine,4,2023,true,https://jasmine.github.io/,,Testing
+Cucumber,2,2020,true,https://cucumber.io/,,Testing
+JUnit,4,2020,true,https://junit.org/,,Testing
+Behave,4,2025,true,https://behave.readthedocs.io/en/latest/,,Testing
+Clean architecture,5,2026,true,https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html,true,Architecture & Design
+Streamlit,5,2026,true,https://docs.streamlit.io/develop/concepts,,Web Frameworks
+Langchain / Langgraph / Deep Agents,4,2025,true,https://docs.langchain.com/oss/python/deepagents/overview,true,Data & AI
+Ionic / Cordova,3,2018,false,https://ionicframework.com/docs/,,Web Frameworks
+Angular,3,2023,false,https://angular.dev/overview,,Web Frameworks
+Pants,4,2025,true,https://www.pantsbuild.org/stable/docs/introduction/welcome-to-pants,,DevOps
+JupyterHub,5,2025,true,https://docs.jupyter.org/en/latest/,,MLOps
+Azure APIM (API Management),2,2025,true,https://azure.microsoft.com/en-us/products/api-management,,DevOps
+TypeScript,3,2023,false,,,Languages

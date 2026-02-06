@@ -8,14 +8,14 @@ def main() -> None:
 
     st.session_state.setdefault("first_time", True)
 
-    pg = {
+    pages_map = {
         "": [
             st.Page(pages.overview, title="Thomas Marquis", icon=":material/home:"),
         ],
         "CV": [
             st.Page(pages.cv_experiences, title="Experiences", icon=":material/business_center:"),
             st.Page(pages.cv_skills, title="Skills", icon=":material/handyman:"),
-            st.Page(pages.cv_education, title="Education", icon=":material/school:")
+            st.Page(pages.cv_education, title="Education", icon=":material/school:"),
         ],
         "Other": [
             st.Page(pages.other_side_projects, title="Side Projects", icon=":material/code:"),
@@ -28,12 +28,26 @@ def main() -> None:
         ],
     }
 
-
-
-    pg = st.navigation(pg, position="sidebar", expanded=True)
-
+    pg = st.navigation(pages_map, position="hidden", expanded=True)
     pg.run()
 
+    with st.sidebar:
+        st.page_link(st.Page(pages.overview, title="Thomas Marquis", icon=":material/home:"))
+
+        with st.container(vertical_alignment="distribute", height="stretch"):
+            st.subheader("CV")
+            st.page_link(st.Page(pages.cv_experiences, title="Experiences", icon=":material/business_center:"))
+            st.page_link(st.Page(pages.cv_skills, title="Skills", icon=":material/handyman:"))
+            st.page_link(st.Page(pages.cv_education, title="Education", icon=":material/school:"))
+            st.divider()
+
+            st.subheader("Other")
+            st.page_link(st.Page(pages.other_side_projects, title="Side Projects", icon=":material/code:"))
+            st.page_link(st.Page(pages.other_publications, title="Publications", icon=":material/book:"))
+            st.divider()
+
+            st.subheader("Information")
+            st.page_link(st.Page(pages.info_contact, title="Contact", icon=":material/email:"))
 
 
 if __name__ == "__main__":

@@ -31,9 +31,10 @@ def tabs_layout(
         if rendering_hooks and rendering_hooks.get("overview_before"):
             rendering_hooks["overview_before"]()
         for doc in docs:
-            st.write(f"- **{doc.title}**")
-            if doc.description:
-                st.write(doc.description)
+            with st.container(border=True):
+                st.write(f":material/check_small: **{doc.title}**")
+                if doc.description:
+                    st.write(doc.description)
         if rendering_hooks and rendering_hooks.get("overview_after"):
             rendering_hooks["overview_after"]()
 

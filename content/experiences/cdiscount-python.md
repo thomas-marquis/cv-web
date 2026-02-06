@@ -52,6 +52,12 @@ skills:
       While the CI/CD pipeline provided a standard Helm chart for most use cases, I developed custom Helm charts for specific applications and environments.
       - Example: Deploying Snowflake credentials on Kubernetes Secrets before the introduction of Vault
 
+  - name: JupyterHub
+    details: |
+      Deployed and customized a JupyterHub server for Data Scientists to access their notebooks securely.
+      - Each user session ran in a dedicated Kubernetes pod with custom resource allocation
+      - Implemented a Keycloak-based authentication system to prevent unauthorized access
+
   - name: Hexagonal Architecture
     details: |
       Promoted and implemented hexagonal architecture, which adheres to Clean Architecture principles.

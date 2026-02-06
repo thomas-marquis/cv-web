@@ -1,6 +1,7 @@
 from collections import namedtuple
 from dataclasses import dataclass
 from enum import Enum
+from unicodedata import category
 
 import polars as pl
 import streamlit as st
@@ -75,6 +76,7 @@ class SkillLevelEnum(Enum):
 
     @classmethod
     def get_by_level(cls, level: int) -> SkillLevel:
+        """Get skill level enum by level number."""
         res = [s.value for s in cls if s.value.level == level]
         if len(res) == 0:
             raise RuntimeError(f"No skill level found for level {level}")
@@ -85,6 +87,7 @@ class SkillLevelEnum(Enum):
 class SkillInfo:
     name: str
     level: SkillLevel
+    category: str
     last_used_year: int | None = None
     in_industrial_context: bool = False
     link: str | None = None
@@ -121,4 +124,5 @@ def get_skill_info(skill_name: str) -> SkillInfo | None:
         level=level,
         in_industrial_context=skill_row["in_industrial_context"].item(),
         link=skill_row["link"].item(),
+        category=skill_row["category"].item(),
     )

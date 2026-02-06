@@ -77,6 +77,10 @@ skills:
   - name: Code Performance Optimization
   - name: Linux & Bash
   - name: Git
+  - name: JupyterHub
+  - name: Azure APIM (API Management)
+    details: |
+      Configured and deployed an APIM instance for our Azure AI Foundry LLM endpoints.
   - name: Prometheus PromQL & Grafana
     details: |
       Created custom Grafana dashboards to monitor our platform and deployed models.
@@ -94,6 +98,10 @@ skills:
       I completed a [training course](https://www.linkedin.com/in/thomas-marquis-contact/details/certifications/) provided by DataScientest about ML.
       I also engaged in self-learning over the years, driven by my passion for machine learning and AI.
   - name: MLflow
+    details: |
+      Deployed a MLflow server for saving and versioning ML models.
+      Developed an OIDC authentication plugin.
+      Then, developed a Python client to interact with the MLflow server (on top of the mlflow library).
   - name: Behave
   - name: Streamlit
     details: |

@@ -1,0 +1,55 @@
+# Skill Categories Configuration
+# Maps category names to their display icons and optional metadata
+
+categories:
+  Languages:
+    icon: "💻"
+    description: "Programming languages"
+
+  DevOps:
+    icon: "🔧"
+    description: "DevOps tools and practices"
+
+  MLOps:
+    icon: "🤖"
+    description: "Machine Learning Operations"
+
+  Data & AI:
+    icon: "📊"
+    description: "Data engineering and artificial intelligence"
+
+  Architecture & Design:
+    icon: "🏗️"
+    description: "Software architecture and design patterns"
+
+  Web Frameworks:
+    icon: "🌐"
+    description: "Web development frameworks and libraries"
+
+  Best Practices:
+    icon: "✨"
+    description: "Development best practices and methodologies"
+
+  Testing:
+    icon: "🧪"
+    description: "Testing frameworks and approaches"
+
+  Databases:
+    icon: "🗄️"
+    description: "Database technologies"
+
+  Observability:
+    icon: "📈"
+    description: "Monitoring and observability tools"
+
+  Security:
+    icon: "🔒"
+    description: "Security technologies and practices"
+
+  Infrastructure:
+    icon: "⚙️"
+    description: "Infrastructure and platform technologies"
+
+  Soft Skills:
+    icon: "🤝"
+    description: "Interpersonal and professional skills"

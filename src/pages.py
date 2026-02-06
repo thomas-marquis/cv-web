@@ -3,6 +3,7 @@ import textwrap
 
 import polars as pl
 import streamlit as st
+import yaml
 from streamlit.navigation.page import StreamlitPage
 
 from libs.cms import back_nav_link
@@ -13,6 +14,15 @@ from libs.cms.documents.layouts.tabs import RenderingHooks
 from src.skills import SkillLevelEnum, get_skill_info, load_skills_data
 
 SKILLS_FILEPATH = "content/skills.csv"
+CATEGORIES_FILEPATH = "content/skill_categories.yaml"
+
+
+@st.cache_data
+def load_skill_categories() -> dict[str, dict[str, str]]:
+    """Load skill categories configuration from YAML file."""
+    with open(CATEGORIES_FILEPATH, "r") as f:
+        config = yaml.safe_load(f)
+    return config.get("categories", {})
 
 
 @st.fragment
@@ -85,78 +95,47 @@ def overview() -> None:
 
     st.divider()
 
-    # Technical depth section - for technical managers
+    # Technical depth section - for technical managers, organized by categories
     st.markdown("#### :rocket: Technical Highlights")
 
+    # Load skills data and categories configuration
+    skills_data = load_skills_data(SKILLS_FILEPATH)
+    category_config = load_skill_categories()
+
+    # Get top skills per category (level >= 4 and used in production)
+    top_skills_by_category = (
+        skills_data.filter((pl.col("level") >= 4) & (pl.col("last_used_year") >= dt.date.today().year - 4))
+        .sort(["category", "level"], descending=[False, True])
+        .group_by("category")
+        .agg(pl.col("name").head(10))  # Top 10 skills per category
+    )
+
+    # Create two columns for layout
     tech_col1, tech_col2 = st.columns(2)
 
-    with tech_col1:
-        with st.expander("**Software Engineering & Architecture**", expanded=False):
-            st.markdown("""
-            - **Clean & Hexagonal Architecture**: Expert-level design patterns for maintainable systems
-            - **Languages**: Python (Expert), Golang (Advanced), Java/Spring Boot (Advanced)
-            - **Testing**: TDD practitioner with Pytest, Behave, Mockito, JUnit
-            - **API Development**: FastAPI, Spring Boot, RESTful design
-            """)
+    # Distribute categories across two columns (in the order defined in YAML)
+    categories_list = [cat for cat in category_config.keys() if cat in top_skills_by_category["category"].to_list()]
 
-    with tech_col2:
-        with st.expander("**MLOps & DevOps**", expanded=False):
-            st.markdown("""
-            - **Orchestration**: Kubernetes, Helm, Argo Workflows
-            - **ML Tools**: MLflow (Expert), Langchain, Azure AI Foundry
-            - **CI/CD**: Azure DevOps YAML Pipelines, automated testing & deployment
-            - **Monitoring**: Prometheus, Grafana, performance optimization
-            """)
+    for idx, category in enumerate(categories_list):
+        # Alternate between columns
+        with tech_col1 if idx % 2 == 0 else tech_col2:
+            skills_in_category = (
+                top_skills_by_category.filter(pl.col("category") == category).select("name").to_series().to_list()
+            )
 
-    with tech_col1:
-        with st.expander("**Data & AI**", expanded=False):
-            st.markdown("""
-            - **Data Engineering**: Python data science libraries, Snowflake, Pandas, Polars
-            - **Machine Learning**: Model training, evaluation, deployment at scale
-            - **AI Integration**: LLMs, RAG systems, GenAI applications
-            - **Databases**: PostgreSQL, SQLite, MS SQL Server, Couchbase
-            """)
+            if skills_in_category and len(skills_in_category[0]) > 0:
+                icon = category_config[category].get("icon", "📌")
+                with st.expander(f"**{icon} {category}**", expanded=False):
+                    skills_list = skills_in_category[0]
+                    # Display as bullet list
+                    for skill in skills_list:
+                        st.markdown(f"- {skill}")
 
-    with tech_col2:
-        with st.expander("**Cloud & Infrastructure**", expanded=False):
-            st.markdown("""
-            - **Cloud Platforms**: Azure (AI Foundry, DevOps, AKS)
-            - **Containerization**: Docker, Kubernetes deployment strategies
-            - **Security**: OIDC, OAuth2 authentication & authorization
-            - **Linux**: Advanced Bash scripting and system administration
-            """)
-    #
-    # st.divider()
-    #
-    # # Impact metrics section - key for recruiters
-    # st.markdown("#### :chart_with_upwards_trend: Impact & Achievements")
-    #
-    # metric_col1, metric_col2, metric_col3 = st.columns(3)
-    #
-    # with metric_col1:
-    #     st.metric(
-    #         label="Deployment Speed",
-    #         value="75%",
-    #         delta="Faster model deployment",
-    #         help="Reduced ML model deployment time through automation and MLOps best practices",
-    #     )
-    #
-    # with metric_col2:
-    #     st.metric(
-    #         label="Experience",
-    #         value="10+ years",
-    #         delta="Multiple industries",
-    #         help="Full-stack development, MLOps, and AI engineering across e-commerce, consulting, and enterprise",
-    #     )
-    #
-    # with metric_col3:
-    #     st.metric(
-    #         label="Production Systems",
-    #         value="50+",
-    #         delta="Skills in production",
-    #         help="Technologies successfully deployed in real-world production environments",
-    #     )
-
+                    # Link to filtered skills page
+                    st.page_link(
+                        _get_page("skills", f"View all {category} skills →"),
+                        query_params={"category": category, "from_page": "overview"},
+                    )
     st.divider()
 
     # Publications and contributions section
@@ -266,7 +245,7 @@ def _render_skill_popover(skill_name: str) -> None:
         st.page_link(
             _get_page("skills", "View all related skills ->"),
             query_params={
-                "skill_name": skill.name,
+                "category": skill.category,
                 "from_page": "experiences",
             },
         )
@@ -278,12 +257,14 @@ def cv_skills() -> None:
 
     st.title(":hammer_and_wrench: Skills")
 
-    data = load_skills_data(SKILLS_FILEPATH)
+    data = (
+        load_skills_data(SKILLS_FILEPATH).select(pl.exclude("highlighted")).with_columns(pl.col("link").fill_null(""))
+    )
 
     filters = []
 
     with st.expander("Filters...", expanded=False):
-        cols = st.columns(2)
+        cols = st.columns(3)
         with cols[0]:
             prod_only = st.radio(
                 "Show only skills used in production?",
@@ -293,17 +274,34 @@ def cv_skills() -> None:
             )
             if prod_only is not None:
                 filters.append({"type": "is_equal", "column": "in_industrial_context", "value": prod_only})
+
         with cols[1]:
+            # Category filter
+            categories = sorted(data["category"].unique().to_list())
+            selected_category = st.selectbox(
+                "Filter by category",
+                options=["All"] + categories,
+                key="category_filter",
+            )
+            if selected_category != "All":
+                filters.append({"type": "is_equal", "column": "category", "value": selected_category})
+
+        with cols[2]:
             max_age = st.slider("Show skills used after...", 2017, dt.date.today().year, 2017, step=1, key="max_age")
             filters.append({"type": "is_greater_or_equal", "column": "last_used_year", "value": max_age})
 
-            skill_name = st.text_input("Filter by skill name", key="skill_name")
-            if skill_name:
-                filters.append({"type": "is_match_str", "column": "name", "value": skill_name})
+        skill_name = st.text_input("Filter by skill name", key="skill_name")
+        if skill_name:
+            filters.append({"type": "is_match_str", "column": "name", "value": skill_name})
 
+    # Handle query parameters
     if "skill_name" in st.query_params:
         filters.append({"type": "is_match_str", "column": "name", "value": st.query_params.skill_name})
         st.query_params.pop("skill_name", None)
+
+    if "category" in st.query_params:
+        filters.append({"type": "is_equal", "column": "category", "value": st.query_params.category})
+        st.query_params.pop("category", None)
 
     if st.button("Reset filters", key="reset_filters"):
         filters = []
@@ -325,10 +323,12 @@ def cv_skills() -> None:
     st.dataframe(
         data,
         height="content",
+        column_order=["name", "level", "last_used_year", "in_industrial_context", "category", "link"],
         column_config={
             "name": st.column_config.TextColumn(
                 "Skill",
                 pinned=True,
+                width=180,
             ),
             "level": st.column_config.ProgressColumn(
                 "Level",
@@ -348,14 +348,37 @@ def cv_skills() -> None:
                 "Used in production?",
                 help="Whether I used this skill in real production context or not",
             ),
+            "category": st.column_config.TextColumn(
+                "Category",
+                help="Skill category for classification",
+            ),
             "link": st.column_config.LinkColumn(
                 "More info...",
                 help="Link to the skill documentation",
-                default="-",
+                default="",
                 display_text=r"https?://(.*?)\/.*",
             ),
         },
     )
+
+    # Bar chart of skills per category
+    with st.expander("📊 Skills Distribution by Category", expanded=False):
+        # Reload full dataset for the chart (ignoring filters)
+        full_data = load_skills_data(SKILLS_FILEPATH)
+
+        # Count skills per category
+        category_counts = full_data.group_by("category").agg(pl.len().alias("count")).sort("count", descending=True)
+
+        st.bar_chart(
+            category_counts,
+            x="category",
+            y="count",
+            x_label="Category",
+            y_label="Number of Skills",
+            horizontal=False,
+        )
+
+        st.caption(f"Total: {len(full_data)} skills across {len(category_counts)} categories")
 
     with st.expander("About skill levels...", expanded=False):
         for level in SkillLevelEnum:
@@ -415,6 +438,42 @@ def other_publications() -> None:
 def info_contact() -> None:
     back_nav_link(_get_page)
     st.title(":mailbox: Contact")
+
+    st.space("medium")
+
+    with st.container(horizontal_alignment="center"):
+        st.subheader("Find me on...")
+        cols = st.columns(3)
+        with cols[0]:
+            with st.container(horizontal=False, horizontal_alignment="center"):
+                st.image("content/assets/images/linkedin-logo.png", caption="", width=50)
+                st.link_button(
+                    "LinkedIn",
+                    "https://www.linkedin.com/in/thomas-marquis-contact/?locale=en",
+                    type="tertiary",
+                    icon=":material/open_in_new:",
+                )
+        with cols[1]:
+            with st.container(horizontal=False, horizontal_alignment="center"):
+                st.image("content/assets/images/github-logo.png", caption="", width=50)
+                st.link_button(
+                    "GitHub", "https://github.com/thomas-marquis", type="tertiary", icon=":material/open_in_new:"
+                )
+        with cols[2]:
+            with st.container(horizontal=False, horizontal_alignment="center"):
+                st.image("content/assets/images/medium-logo.png", caption="", width=50)
+                st.link_button(
+                    "Medium", "https://medium.com/@thomas.marquis314", type="tertiary", icon=":material/open_in_new:"
+                )
+
+        st.space("medium")
+        st.success(
+            "Feel free to reach out to me for any questions or collaboration opportunities, preferably via **LinkedIn**."
+        )
+
+        st.space("medium")
+
+        st.info("References available on request")
 
 
 def _get_page(name: str, label: str | None = None) -> StreamlitPage:
