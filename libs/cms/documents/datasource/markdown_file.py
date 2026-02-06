@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import streamlit as st
 import yaml
 
 from ...common import Skill, TimePeriod
@@ -25,6 +26,7 @@ class MarkdownDocument:
     weight: int = 0
     period: TimePeriod | None = None
     image_path: Path | None = None
+    highlighted: bool = False
 
     _content: str | None = None
 
@@ -53,6 +55,7 @@ class MarkdownDocument:
             weight=int(doc_metadata.get("weight", 0)),
             period=tp,
             image_path=image_path,
+            highlighted=doc_metadata.get("highlighted", False),
         )
 
         return doc
@@ -171,3 +174,14 @@ class MarkdownLoader:
         metadata: dict[str, Any] = yaml.safe_load(yaml_content) or {}
 
         return metadata
+
+
+@st.cache_data
+def load_documents(dir_path: Path | str) -> list[MarkdownDocument]:
+    return MarkdownLoader(dir_path).load_all()
+
+
+@st.cache_data
+def load_highlighted_documents(dir_path: Path | str) -> list[MarkdownDocument]:
+    docs = load_documents(dir_path)
+    return [doc for doc in docs if doc.highlighted]

@@ -5,7 +5,7 @@ from typing import Callable, TypedDict
 import streamlit as st
 
 from ...common import Pager
-from ._load import _load_docs
+from ..datasource import load_documents
 
 
 class RenderingHooks(TypedDict, total=False):
@@ -18,7 +18,7 @@ def tabs_layout(
 ) -> None:
     st.title(title)
 
-    docs = _load_docs(folder_path)
+    docs = load_documents(folder_path)
     if len(docs) == 0:
         st.write("Nothing to show here... yet...")
         return

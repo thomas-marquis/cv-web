@@ -3,11 +3,12 @@ title: "Web and Chatbot Developer at Cdiscount"
 description: |
   Development of Google Assistant and Messenger chatbots (using Dialogflow and Spring Boot), 
   and front/back development on the Cdiscount’s website (ReactJS) and mobile app (React Native).
-  
+
   - Deployed chatbots helping users to find products
   - Developed a new navigation system on the mobile website and app
 image: "content/assets/images/java-logo.png"
 weight: 20
+highlighted: false
 skills:
   - name: Java
     details: |
@@ -84,11 +85,13 @@ period:
   format: "%Y-%m"
 location: Bordeaux, France
 ---
+
 # Web and Chatbot Developer at Cdiscount
 
 ## Context
 
-Cdiscount is a leading French e-commerce company. In 2018, chatbots were quite different from today, but their popularity was on the rise.
+Cdiscount is a leading French e-commerce company. In 2018, chatbots were quite different from today, but their
+popularity was on the rise.
 The company formed a small team, the FT-Chatbot (FT = Feature Team), to develop its first internal chatbot.
 I served as a web developer on this team for two years, from its inception to the project's conclusion.
 
@@ -122,12 +125,14 @@ I served as a web developer on this team for two years, from its inception to th
   - Developing the frontend using the new or updated backend.
 
 Some features I worked on include:
+
 - Quick and smart filtering buttons to help users filter the catalog by suggesting filters (e.g., product size, color).
 - A chatbot widget integrated directly into the search results page for specific categories.
 
 **R&D: The Open Conversational Kit**
 
-- [TOCK (The Open Conversational Kit)](https://doc.tock.ai/tock/master/admin/architecture.html) is an open-source French NLP platform for creating chatbots.
+- [TOCK (The Open Conversational Kit)](https://doc.tock.ai/tock/master/admin/architecture.html) is an open-source French
+  NLP platform for creating chatbots.
   It can be deployed on-premise or in the cloud.
 - We evaluated TOCK to determine if it could replace Dialogflow in our chatbot.
 - The platform is written in Kotlin, and we explored its capabilities during this period.
@@ -135,6 +140,7 @@ Some features I worked on include:
 ## Focus: How Did the Chatbot Work?
 
 In 2018, generative AI did not yet exist. The chatbot operated using two simple techniques:
+
 - **Intent Detection**: This is a text classification problem where an intent represents a category of user interaction.
   For example, our chatbot could advise customers on wine and toys (two distinct topics).
   We set up two main intents, one for each topic.
@@ -145,4 +151,5 @@ Dialogflow, a SaaS platform, allowed us to define intents and entities without c
 We provided examples for each, and the platform trained the model accordingly.
 
 Team members manually wrote all the bot's responses for each scenario.
-For a given scenario, multiple similar responses were possible, and the backend randomly selected one to create the illusion of a natural conversation.
+For a given scenario, multiple similar responses were possible, and the backend randomly selected one to create the
+illusion of a natural conversation.

@@ -4,8 +4,7 @@ from typing import Callable, TypedDict
 
 import streamlit as st
 
-from ..datasource import MarkdownDocument
-from ._load import _load_docs
+from ..datasource import MarkdownDocument, load_documents
 
 type SkillName = str
 
@@ -31,15 +30,6 @@ def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], 
                 st.write(skill.details)
             with st.popover("About this skill", type="tertiary"):
                 on_skill_popover(skill.name)
-                # st.write(skill.details)
-                # with st.container(horizontal_alignment="right"):
-                #     st.page_link(
-                #         pager("skills", "View all related skills ->"),
-                #         query_params={
-                #             "skill_name": skill.name,
-                #             "from_page": "experiences",
-                #         },
-                #     )
 
 
 @st.fragment
@@ -81,9 +71,10 @@ def card(
 def cards_and_dialogs_layout(
     title: str, folder_path: Path | str, rendering_hooks: RenderingHooks | None = None
 ) -> None:
+    rendering_hooks = rendering_hooks or {}
     st.title(title)
 
-    docs = _load_docs(folder_path)
+    docs = load_documents(folder_path)
 
     if len(docs) == 0:
         st.write("Nothing to show here... yet...")

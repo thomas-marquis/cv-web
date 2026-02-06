@@ -73,6 +73,13 @@ class SkillLevelEnum(Enum):
         """Returns formatted examples for better readability."""
         return "\n- ".join([""] + self.value.examples)
 
+    @classmethod
+    def get_by_level(cls, level: int) -> SkillLevel:
+        res = [s.value for s in cls if s.value.level == level]
+        if len(res) == 0:
+            raise RuntimeError(f"No skill level found for level {level}")
+        return res[0]
+
 
 @dataclass
 class SkillInfo:
@@ -90,6 +97,7 @@ def load_skills_data(path: str) -> pl.DataFrame:
             "level": pl.Int64,
             "last_used_year": pl.Int64,
             "in_industrial_context": pl.Boolean,
+            "highlighted": pl.Boolean,
         }
     )
 

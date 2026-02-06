@@ -8,6 +8,7 @@ description: |
   - Developed, optimized, and/or refactored Python ML inference jobs
   - Developed a security Python library implementing the OpenID Connect protocol
 weight: 30
+highlighted: true
 image: "content/assets/images/python-logo.png"
 skills:
   - name: Python
@@ -156,58 +157,77 @@ period:
   format: "%Y-%m"
 location: Bordeaux, France
 ---
+
 # Python Expert for Data Science
 
 ## Context
 
-After leaving the Chatbot Team, I joined a team focused on **industrializing Data Science projects** at [Peaksys](https://www.linkedin.com/company/peaksys/posts/?feedView=all) (the Cdiscount's IT subsidiary). 
-My role was to bridge the gap between Data Scientists and production environments, ensuring their work was scalable, maintainable, and efficient. 
+After leaving the Chatbot Team, I joined a team focused on **industrializing Data Science projects**
+at [Peaksys](https://www.linkedin.com/company/peaksys/posts/?feedView=all) (the Cdiscount's IT subsidiary).
+My role was to bridge the gap between Data Scientists and production environments, ensuring their work was scalable,
+maintainable, and efficient.
 I developed Python libraries, frameworks, and tools to streamline workflows, improve security, and optimize performance.
 
-During this mission, I was employed by [SII](https://sii-group.com/en-FR) and worked at Peaksys as a full-time consultant.
+During this mission, I was employed by [SII](https://sii-group.com/en-FR) and worked at Peaksys as a full-time
+consultant.
 
 ## Achievements
 
 **🛠 Python Libraries Development**
-- Developed Python libraries to simplify interactions with the company's information system (databases, observability, file storage, etc.).
+
+- Developed Python libraries to simplify interactions with the company's information system (databases, observability,
+  file storage, etc.).
 - Focused on creating reusable, modular, and well-documented code to empower Data Scientists.
 
 **🧰 Framework Development**
-- Designed and developed a **custom framework** based on Luigi to help Data Scientists write Python workflows efficiently.
+
+- Designed and developed a **custom framework** based on Luigi to help Data Scientists write Python workflows
+  efficiently.
 - The framework improved organization, reproducibility, and scalability of data science projects.
 - Provided generic components to avoid code duplication and accelerate development.
 
 **🧩 Argo Workflows**
-- Deployed **Argo Workflows** on Kubernetes, enabling Data Science teams to split large workflows into smaller, manageable steps.
-- Facilitated scheduling and parallel execution of workflows across multiple Kubernetes pods, enhancing efficiency and resource utilization.
+
+- Deployed **Argo Workflows** on Kubernetes, enabling Data Science teams to split large workflows into smaller,
+  manageable steps.
+- Facilitated scheduling and parallel execution of workflows across multiple Kubernetes pods, enhancing efficiency and
+  resource utilization.
 
 **🔑 Security and Authentication**
+
 - Developed a **security library** implementing **OpenID Connect (OIDC)** and **OAuth2** protocols.
 - Ensured secure access to internal tools and resources, aligning with company-wide security standards.
 - Managed complexity by splitting the library into smaller modules and using **Pants** for monorepo management.
 
 **❄️ Snowflake Migration**
+
 - Assisted in migrating all **Data Science Python algorithms** to **Snowflake**.
 - Leveraged the migration to refactor and optimize existing Python projects, improving performance and maintainability.
 
 **🪐 JupyterHub Deployment**
-- Deployed a **JupyterHub server** on Kubernetes, providing Data Scientists with secure access to their notebook sessions.
+
+- Deployed a **JupyterHub server** on Kubernetes, providing Data Scientists with secure access to their notebook
+  sessions.
 - Each user session ran in a dedicated Kubernetes pod with custom resource allocation.
 - Implemented a **Keycloak-based authentication system** to prevent unauthorized access.
 
 **👩‍🏫 CI/CD Training**
+
 - Created and led **training sessions** for Data Scientists on **CI/CD best practices**.
 - Focused on automating testing, deployment, and monitoring to ensure smooth and reliable workflows.
 
 **📏 Metrics Exporter**
+
 - Developed an **ephemeral-storage metric exporter** for Kubernetes, enabling better monitoring and resource management.
 
 **🧶 Performance Optimizations**
+
 - Optimized the performance of Python batch jobs by identifying bottlenecks and implementing improvements:
   - Better batching strategies
   - Faster libraries and algorithms
   - Efficient resource utilization
 
 **📦 Docker Images**
+
 - Developed **standard internal Docker images** for all Python versions used in the company.
 - Managed the **version lifecycle** and built automated pipelines to regularly rebuild and update images.

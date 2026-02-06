@@ -11,6 +11,7 @@ description: |
   - Prototyped AI multi-agent architecture with Langchain, Langgraph, a2a-sdk, and MCP
 image: "content/assets/images/python-logo.png"
 weight: 40
+highlighted: true
 skills:
   - name: Python
   - name: Python Data Science Libraries
@@ -116,11 +117,13 @@ period:
   format: "%Y-%m"
 location: Bordeaux, France
 ---
+
 # Tech Lead MLOps at Peaksys
 
 ## Context
 
 MLOps focuses on managing and automating the lifecycle of machine learning models, including:
+
 - **Training**
 - **Model artifact storage, traceability, and versioning**
 - **Deployment and inference**
@@ -128,24 +131,29 @@ MLOps focuses on managing and automating the lifecycle of machine learning model
 - **Retraining**
 
 By "ML model," we refer to:
+
 - "Classical" machine learning models (e.g., Scikit-Learn-based models, XGBoost)
 - Deep learning models (e.g., PyTorch, TensorFlow)
 - LLM and embedding models (e.g., Hugging Face Transformers, open-weight models)
 
 ## About the Team and My Responsibilities
 
-The AI team (aka "CT-IA") was a platform team. Our mission was to build a scalable AI/ML platform to support other teams within the company in developing their AI/ML products. Our "clients" included:
+The AI team (aka "CT-IA") was a platform team. Our mission was to build a scalable AI/ML platform to support other teams
+within the company in developing their AI/ML products. Our "clients" included:
+
 - **Data Scientists**, providing tools for training, deploying, and managing models
 - **Machine Learning Engineers**, Python developers collaborating with data scientists to industrialize their code
 - **IT Teams**, offering production-ready LLM endpoints (both on-premise and in the cloud)
 
 The team consisted of:
+
 - A manager
 - A Platform Owner (equivalent to a Product Owner)
 - 3 MLOps engineers
 - A Platform Tech Lead (myself)
 
 As Platform Tech Lead, my responsibilities included:
+
 - Making technical decisions about platform architecture
 - Contributing to platform development and operations
 - Ensuring the quality of our assets
@@ -157,32 +165,41 @@ As Platform Tech Lead, my responsibilities included:
 ## Key Achievements
 
 **✨ On-Premise LLMs**
+
 - Deployed on-premise models on Kubernetes with limited GPU resources.
-  Models were deployed using Text Generation Inference (for LLMs) or Triton Inference Server (for other models, such as CLIP).
+  Models were deployed using Text Generation Inference (for LLMs) or Triton Inference Server (for other models, such as
+  CLIP).
   Deployment was managed with a custom Helm chart.
   To provide unified access to all models, I deployed a Traefik proxy as an AI Gateway.
 
 **🧩 MLflow**
+
 - Deployed an MLflow server on our Kubernetes cluster.
   Developed an OIDC authentication plugin to secure the MLflow instance with our internal Keycloak.
 
 **⛓ CI/CD Pipelines**
+
 - Built CI/CD pipelines for ML model training and rapid experimentation.
 
 **☁️ Azure AI Foundry**
+
 - Managed Azure OpenAI (now Azure AI Foundry) models, initially manually and later through an APIOps pipeline.
   These deployments were used company-wide for various AI projects.
 
 **💬 Chatbot**
+
 - Developed a RAG chatbot using Langchain.
 
 **🔬 R&D**
+
 - Conducted R&D on MCP and multi-agent architecture in Python (a2a-sdk).
 
 **📢 Mentoring and Sharing**
+
 - Led coding dojos on Langchain and Langgraph.
 
 **🪄 AI Workflow Development**
+
 - Developed an AI workflow to enhance the quality of product titles and descriptions.
 
 ## Other Responsibilities
@@ -193,6 +210,7 @@ As Platform Tech Lead, my responsibilities included:
 ## About Peaksys
 
 Peaksys is the IT subsidiary of the Cnova Group, which also owns:
+
 - **Cdiscount**, a prominent e-commerce platform in France
 - **C-Logistics**, providing shipment and logistics solutions
 - **Octopia**, offering a Marketplace-as-a-Service solution
