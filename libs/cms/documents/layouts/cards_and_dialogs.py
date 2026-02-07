@@ -1,0 +1,111 @@
+from operator import attrgetter
+from pathlib import Path
+from typing import Callable, TypedDict
+
+import streamlit as st
+
+from ...common.files import get_file_data
+from ...navigation import Router
+from ..datasource import MarkdownDocument, load_documents
+
+type SkillName = str
+
+
+class RenderingHooks(TypedDict, total=False):
+    on_skill_popover: Callable[[SkillName], None]
+
+
+@st.dialog("About this experience", width="medium")
+def _open_dialog(
+    router: Router, doc: MarkdownDocument, on_skill_popover: Callable[[SkillName, Router], None] | None = None
+) -> None:
+    st.markdown(doc.content, unsafe_allow_html=True)
+
+    if doc.downloads:
+        st.divider()
+        st.subheader("Downloads:")
+        for download in doc.downloads:
+            filename = Path(download.path).name
+            st.download_button(
+                label=download.title,
+                data=get_file_data(download.path),
+                icon=":material/download:",
+                type="tertiary",
+                file_name=filename,
+            )
+
+    if not doc.skills:
+        return
+    st.divider()
+    st.subheader("Skills used:")
+    for skill in doc.skills:
+        label = f"{skill.name}"
+        if skill.details:
+            label += " :material/info:"
+        with st.expander(label, expanded=False):
+            if skill.details:
+                st.write(skill.details)
+            if on_skill_popover:
+                with st.popover("About this skill", type="tertiary"):
+                    on_skill_popover(skill.name, router)
+
+
+@st.fragment
+def card(
+    router: Router,
+    doc: MarkdownDocument,
+    on_click: Callable[[Router, MarkdownDocument, Callable[[SkillName, Router], None]], None],
+    rendering_hooks: RenderingHooks | None = None,
+    is_clicked: bool = False,
+) -> None:
+    if doc.period and (start := doc.period.start):
+        end = doc.period.end
+        label = start.strftime("%B %Y - ")
+        if end:
+            label += end.strftime("%B %Y")
+        else:
+            label += "Present"
+        st.subheader(f":material/line_start_circle: {label} :material/line_end_circle:")
+
+    with st.container(border=True):
+        st.subheader(doc.title)
+
+        if doc.image_path:
+            with st.container(horizontal_alignment="center"):
+                st.image(doc.image_path, width=250)
+
+        if d := doc.description:
+            st.write(d)
+
+        if skills := doc.skills:
+            skills_list = ", ".join(skill.name for skill in skills)
+            st.caption(f"Main skills: {skills_list}")
+
+        with st.container(horizontal_alignment="right"):
+            btn_key = f"details_open_btn_{doc.title}"
+            if is_clicked or st.button("Read the full story ->", key=btn_key, type="primary"):
+                on_click(router, doc, rendering_hooks.get("on_skill_popover"))
+
+
+@st.fragment
+def cards_and_dialogs_layout(
+    router: Router,
+    title: str,
+    folder_path: Path | str,
+    rendering_hooks: RenderingHooks | None = None,
+    opened_doc_title: str | None = None,
+) -> None:
+    rendering_hooks = rendering_hooks or {}
+    st.title(title)
+
+    docs = load_documents(folder_path)
+
+    if len(docs) == 0:
+        st.write("Nothing to show here... yet...")
+        return
+
+    for i, doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):
+        card(router, doc, _open_dialog, rendering_hooks=rendering_hooks, is_clicked=doc.title == opened_doc_title)
+
+        if i < len(docs) - 1:
+            st.space("small")

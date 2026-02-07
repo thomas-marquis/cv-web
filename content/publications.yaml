@@ -1,0 +1,18 @@
+items:
+  - title: "When Go Meets AI: Building a RAG Application with Genkit"
+    description: "A tutorial introducing Genkit’s fundamental concepts, along with practical tips and examples."
+    category: "Medium article"
+    date: "2025-09"
+    link: "https://medium.com/@thomas.marquis314/when-go-meets-ai-building-a-rag-application-with-genkit-3f0a2734eca7"
+
+  - title: "Extending AI Capabilities: Implementing Tool Calling in Go Using Genkit"
+    description: "Part 2 of the Genkit series. This article explains the concept of tools and demonstrates how to implement them in Go with Genkit."
+    category: "Medium article"
+    date: "2026-01"
+    link: "https://medium.com/@thomas.marquis314/extending-ai-capabilities-implementing-tool-calling-in-go-using-genkit-76da8a7f29f7"
+
+  - title: "Mini-Conf MLOps (Paris)"
+    description: "A talk on MLOps and its implementation in complex enterprise environments."
+    category: "Talk"
+    date: "2024-12"
+    link: "https://www.linkedin.com/posts/florentpietot_premi%C3%A8re-%C3%A9dition-des-mini-conf-mlops-le-activity-7270806733076189184-ZA65/?originalSubdomain=fr"
