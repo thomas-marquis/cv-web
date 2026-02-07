@@ -15,7 +15,9 @@ class RenderingHooks(TypedDict, total=False):
 
 
 @st.dialog("About this experience", width="medium")
-def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], None], router: Router) -> None:
+def _open_dialog(
+    router: Router, doc: MarkdownDocument, on_skill_popover: Callable[[SkillName, Router], None] | None = None
+) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
 
     if not doc.skills:
@@ -29,15 +31,16 @@ def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], 
         with st.expander(label, expanded=False):
             if skill.details:
                 st.write(skill.details)
-            with st.popover("About this skill", type="tertiary"):
-                on_skill_popover(skill.name, router)
+            if on_skill_popover:
+                with st.popover("About this skill", type="tertiary"):
+                    on_skill_popover(skill.name, router)
 
 
 @st.fragment
 def card(
     router: Router,
     doc: MarkdownDocument,
-    on_click: Callable[[MarkdownDocument, Callable[[SkillName], None], Router], None],
+    on_click: Callable[[Router, MarkdownDocument, Callable[[SkillName, Router], None]], None],
     rendering_hooks: RenderingHooks | None = None,
 ) -> None:
     if doc.period and (start := doc.period.start):
@@ -66,7 +69,7 @@ def card(
         with st.container(horizontal_alignment="right"):
             btn_key = f"details_open_btn_{doc.title}"
             if st.button("Read the full story ->", key=btn_key, type="primary"):
-                on_click(doc, rendering_hooks.get("on_skill_popover"), router)
+                on_click(router, doc, rendering_hooks.get("on_skill_popover"))
 
 
 @st.fragment

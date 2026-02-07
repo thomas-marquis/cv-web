@@ -1,48 +1,50 @@
 import datetime as dt
 import textwrap
+from pathlib import Path
 
 import polars as pl
 import streamlit as st
-import yaml
 
 from libs.cms import DEFAULT_SECTION, Router, SectionName
 from libs.cms.data.layouts import cards_layout
 from libs.cms.documents import load_highlighted_documents
 from libs.cms.documents.layouts import cards_and_dialogs_layout, tabs_layout
 from libs.cms.documents.layouts.tabs import RenderingHooks
-from src.skills import SkillLevelEnum, load_skills_data, render_skill_popover
-
-SKILLS_FILEPATH = "content/skills.csv"
-CATEGORIES_FILEPATH = "content/skill_categories.yaml"
-
-
-@st.cache_data
-def load_skill_categories() -> dict[str, dict[str, str]]:
-    """Load skill categories configuration from YAML file."""
-    with open(CATEGORIES_FILEPATH, "r") as f:
-        config = yaml.safe_load(f)
-    return config.get("categories", {})
-
+from src.skills import SkillLevelEnum, load_skill_categories, load_skills_data, render_skill_popover
 
 _SECTION_CV: SectionName = "CV"
 _SECTION_CONTRIBUTIONS: SectionName = "Contributions"
+_SECTION_INFO: SectionName = "Information"
+
+ORDERED_SECTIONS = [_SECTION_CV, _SECTION_CONTRIBUTIONS, _SECTION_INFO]
 
 router = Router()
+
+
+@st.cache_resource(show_spinner=True)
+def _get_file_data(path: str | Path) -> bytes:
+    with open(path, "rb") as f:
+        return f.read()
 
 
 @router.page(DEFAULT_SECTION, title="Thomas Marquis", icon=":material/home:")
 @st.fragment
 def overview() -> None:
-    # Banner section with headline and value proposition
     if st.session_state.first_time:
         st.title("👋 Welcome!")
         st.session_state.first_time = False
     else:
         st.title("☕️ Thomas Marquis")
 
-    # Professional headline and value proposition
-    st.markdown("### MLOps Engineer | Scaling AI from Research to Production")
-    st.markdown("**8+ years bridging software engineering and MLOps**")
+    st.subheader("MLOps Engineer | Scaling AI from Research to Production")
+
+    cols = st.columns(2)
+    with cols[0]:
+        st.write(":material/check: 8 years of experience")
+    with cols[1]:
+        st.write(":material/check: Software engineering")
+        st.write(":material/check: MLOps")
+    st.space("small")
 
     # Quick action buttons for recruiters
     col1, col2, col3 = st.columns([1, 1, 2])
@@ -55,18 +57,25 @@ def overview() -> None:
     with col2:
         st.page_link(
             router.get_page("skills", "Browse Skills →"),
-            # _get_page("skills", "Browse Skills →")
             use_container_width=True,
             query_params={"from_page": "overview"},
         )
 
+    with col3:
+        with st.container(horizontal_alignment="right", vertical_alignment="top"):
+            st.download_button(
+                "Download my CV",
+                data=_get_file_data("content/documents/resume.pdf"),
+                file_name="thomas_marquis_resume.pdf",
+                type="tertiary",
+                icon=":material/download:",
+            )
+
     st.divider()
 
-    # Core competencies section - optimized for quick scanning by recruiters
     st.markdown("#### :hammer_and_wrench: Core Competencies")
 
-    # Display top expert-level skills with badges
-    skills_data = load_skills_data(SKILLS_FILEPATH)
+    skills_data = load_skills_data()
     top_skills = skills_data.filter(pl.col("highlighted")).sort("level", descending=True)
 
     if len(top_skills) > 0:
@@ -81,7 +90,6 @@ def overview() -> None:
 
     st.divider()
 
-    # Recent experience highlight section
     st.markdown("#### :briefcase: Recent Experience Highlights")
 
     highlighted_experiences = load_highlighted_documents("content/experiences")
@@ -101,17 +109,17 @@ def overview() -> None:
                     st.page_link(
                         router.get_page("experiences", "Read full details →"), query_params={"from_page": "overview"}
                     )
-
+    st.page_link(
+        router.get_page("experiences", "View all experiences →"),
+        query_params={"from_page": "overview"},
+    )
     st.divider()
 
-    # Technical depth section - for technical managers, organized by categories
     st.markdown("#### :rocket: Technical Highlights")
 
-    # Load skills data and categories configuration
-    skills_data = load_skills_data(SKILLS_FILEPATH)
+    skills_data = load_skills_data()
     category_config = load_skill_categories()
 
-    # Get top skills per category (level >= 4 and used in production)
     top_skills_by_category = (
         skills_data.filter((pl.col("level") >= 4) & (pl.col("last_used_year") >= dt.date.today().year - 4))
         .sort(["category", "level"], descending=[False, True])
@@ -119,14 +127,10 @@ def overview() -> None:
         .agg(pl.col("name").head(10))  # Top 10 skills per category
     )
 
-    # Create two columns for layout
     tech_col1, tech_col2 = st.columns(2)
-
-    # Distribute categories across two columns (in the order defined in YAML)
     categories_list = [cat for cat in category_config.keys() if cat in top_skills_by_category["category"].to_list()]
 
     for idx, category in enumerate(categories_list):
-        # Alternate between columns
         with tech_col1 if idx % 2 == 0 else tech_col2:
             skills_in_category = (
                 top_skills_by_category.filter(pl.col("category") == category).select("name").to_series().to_list()
@@ -136,18 +140,15 @@ def overview() -> None:
                 icon = category_config[category].get("icon", "📌")
                 with st.expander(f"**{icon} {category}**", expanded=False):
                     skills_list = skills_in_category[0]
-                    # Display as bullet list
                     for skill in skills_list:
                         st.markdown(f"- {skill}")
 
-                    # Link to filtered skills page
                     st.page_link(
                         router.get_page("skills", f"View all {category} skills →"),
                         query_params={"category": category, "from_page": "overview"},
                     )
     st.divider()
 
-    # Publications and contributions section
     st.markdown("#### :loudspeaker: Recent Publications & Talks")
 
     pub_col1, pub_col2 = st.columns(2)
@@ -180,7 +181,6 @@ def overview() -> None:
 
     st.divider()
 
-    # Call to action section
     st.markdown("#### :mailbox: Let's Connect")
 
     cta_col1, cta_col2, cta_col3 = st.columns(3)
@@ -234,9 +234,7 @@ def skills() -> None:
 
     st.title(":hammer_and_wrench: Skills")
 
-    data = (
-        load_skills_data(SKILLS_FILEPATH).select(pl.exclude("highlighted")).with_columns(pl.col("link").fill_null(""))
-    )
+    data = load_skills_data().select(pl.exclude("highlighted")).with_columns(pl.col("link").fill_null(""))
 
     filters = []
 
@@ -341,7 +339,7 @@ def skills() -> None:
     # Bar chart of skills per category
     with st.expander("📊 Skills Distribution by Category", expanded=False):
         # Reload full dataset for the chart (ignoring filters)
-        full_data = load_skills_data(SKILLS_FILEPATH)
+        full_data = load_skills_data()
 
         # Count skills per category
         category_counts = full_data.group_by("category").agg(pl.len().alias("count")).sort("count", descending=True)
@@ -413,7 +411,7 @@ def publications() -> None:
     cards_layout(":loudspeaker: Articles and Talks", "content/publications.yaml")
 
 
-@router.page("Information", title="Contact", icon=":material/email:")
+@router.page(_SECTION_INFO, title="Contact", icon=":material/email:")
 @st.fragment
 def contact() -> None:
     router.back_nav_link()

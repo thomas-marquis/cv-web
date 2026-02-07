@@ -4,8 +4,12 @@ from enum import Enum
 
 import polars as pl
 import streamlit as st
+import yaml
 
 from libs.cms import Router
+
+SKILLS_FILEPATH = "content/skills.csv"
+CATEGORIES_FILEPATH = "content/skill_categories.yaml"
 
 SkillLevel = namedtuple("SkillLevel", ["level", "label", "description", "examples"])
 
@@ -94,21 +98,32 @@ class SkillInfo:
     link: str | None = None
 
 
+@st.cache_data
+def load_skill_categories() -> dict[str, dict[str, str]]:
+    with open(CATEGORIES_FILEPATH, "r") as f:
+        config = yaml.safe_load(f)
+    return config.get("categories", {})
+
+
 @st.cache_data()
-def load_skills_data(path: str) -> pl.DataFrame:
-    return pl.read_csv(path, has_header=True).cast(
-        {
-            "level": pl.Int64,
-            "last_used_year": pl.Int64,
-            "in_industrial_context": pl.Boolean,
-            "highlighted": pl.Boolean,
-        }
+def load_skills_data() -> pl.DataFrame:
+    return (
+        pl.read_csv(SKILLS_FILEPATH, has_header=True)
+        .cast(
+            {
+                "level": pl.Int64,
+                "last_used_year": pl.Int64,
+                "in_industrial_context": pl.Boolean,
+                "highlighted": pl.Boolean,
+            }
+        )
+        .sort("level", descending=True)
     )
 
 
 @st.cache_data()
 def get_skill_info(skill_name: str) -> SkillInfo | None:
-    all_skills = load_skills_data("content/skills.csv")
+    all_skills = load_skills_data()
     skill_row = all_skills.filter(pl.col("name").str.to_lowercase() == skill_name.lower())
     if len(skill_row) == 0:
         return None
