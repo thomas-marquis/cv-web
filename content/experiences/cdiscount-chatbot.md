@@ -1,5 +1,5 @@
 ---
-title: "Web and Chatbot Developer at Cdiscount"
+title: "Web and Chatbot Developer at [Cdiscount](https://www.cdiscount.com/)"
 description: |
   Development of Google Assistant and Messenger chatbots (using Dialogflow and Spring Boot), 
   and front/back development on the Cdiscount’s website (ReactJS) and mobile app (React Native).

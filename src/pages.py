@@ -5,7 +5,7 @@ from pathlib import Path
 import polars as pl
 import streamlit as st
 
-from libs.cms import DEFAULT_SECTION, Router, SectionName
+from libs.cms import DEFAULT_SECTION, Router, SectionName, get_file_data
 from libs.cms.data.layouts import cards_layout
 from libs.cms.documents import load_highlighted_documents
 from libs.cms.documents.layouts import cards_and_dialogs_layout, tabs_layout
@@ -19,12 +19,6 @@ _SECTION_INFO: SectionName = "Information"
 ORDERED_SECTIONS = [_SECTION_CV, _SECTION_CONTRIBUTIONS, _SECTION_INFO]
 
 router = Router()
-
-
-@st.cache_resource(show_spinner=True)
-def _get_file_data(path: str | Path) -> bytes:
-    with open(path, "rb") as f:
-        return f.read()
 
 
 @router.page(DEFAULT_SECTION, title="Thomas Marquis", icon=":material/home:")
@@ -65,7 +59,7 @@ def overview() -> None:
         with st.container(horizontal_alignment="right", vertical_alignment="top"):
             st.download_button(
                 "Download my CV",
-                data=_get_file_data("content/documents/resume.pdf"),
+                data=get_file_data("content/documents/resume.pdf"),
                 file_name="thomas_marquis_resume.pdf",
                 type="tertiary",
                 icon=":material/download:",
@@ -107,7 +101,8 @@ def overview() -> None:
                         st.caption(per_label)
                     st.markdown(hexpe.description)
                     st.page_link(
-                        router.get_page("experiences", "Read full details →"), query_params={"from_page": "overview"}
+                        router.get_page("experiences", "Read full details →"),
+                        query_params={"from_page": "overview", "open_experience": hexpe.title},
                     )
     st.page_link(
         router.get_page("experiences", "View all experiences →"),
@@ -217,6 +212,7 @@ def experiences() -> None:
         ":briefcase: Professional Experiences",
         "content/experiences",
         {"on_skill_popover": render_skill_popover},
+        opened_doc_title=st.query_params.get("open_experience"),
     )
 
     st.divider()

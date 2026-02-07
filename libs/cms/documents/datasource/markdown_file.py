@@ -15,6 +15,12 @@ from ...common import Skill, TimePeriod
 
 
 @dataclass
+class Download:
+    path: Path
+    title: str
+
+
+@dataclass
 class MarkdownDocument:
     path: Path
     title: str
@@ -27,11 +33,12 @@ class MarkdownDocument:
     period: TimePeriod | None = None
     image_path: Path | None = None
     highlighted: bool = False
+    downloads: list[Download] = field(default_factory=list)
 
     _content: str | None = None
 
     @classmethod
-    def from_metadata(cls, path: Path, doc_metadata: dict[str, str]) -> MarkdownDocument:
+    def from_metadata(cls, path: Path, doc_metadata: dict[str, Any]) -> MarkdownDocument:
         skills: list[dict[str, str]] = doc_metadata.get("skills", [])
 
         tp = None
@@ -56,6 +63,7 @@ class MarkdownDocument:
             period=tp,
             image_path=image_path,
             highlighted=doc_metadata.get("highlighted", False),
+            downloads=[Download(path=Path(d["path"]), title=d["title"]) for d in doc_metadata.get("downloads", [])],
         )
 
         return doc
