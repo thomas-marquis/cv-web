@@ -4,14 +4,13 @@ import textwrap
 import polars as pl
 import streamlit as st
 import yaml
-from streamlit.navigation.page import StreamlitPage
 
-from libs.cms import back_nav_link
+from libs.cms import DEFAULT_SECTION, Router, SectionName
 from libs.cms.data.layouts import cards_layout
 from libs.cms.documents import load_highlighted_documents
 from libs.cms.documents.layouts import cards_and_dialogs_layout, tabs_layout
 from libs.cms.documents.layouts.tabs import RenderingHooks
-from src.skills import SkillLevelEnum, get_skill_info, load_skills_data
+from src.skills import SkillLevelEnum, load_skills_data, render_skill_popover
 
 SKILLS_FILEPATH = "content/skills.csv"
 CATEGORIES_FILEPATH = "content/skill_categories.yaml"
@@ -25,6 +24,13 @@ def load_skill_categories() -> dict[str, dict[str, str]]:
     return config.get("categories", {})
 
 
+_SECTION_CV: SectionName = "CV"
+_SECTION_CONTRIBUTIONS: SectionName = "Contributions"
+
+router = Router()
+
+
+@router.page(DEFAULT_SECTION, title="Thomas Marquis", icon=":material/home:")
 @st.fragment
 def overview() -> None:
     # Banner section with headline and value proposition
@@ -42,13 +48,16 @@ def overview() -> None:
     col1, col2, col3 = st.columns([1, 1, 2])
     with col1:
         st.page_link(
-            _get_page("experiences", "View Experience →"),
+            router.get_page("experiences", "View Experience →"),
             use_container_width=True,
             query_params={"from_page": "overview"},
         )
     with col2:
         st.page_link(
-            _get_page("skills", "Browse Skills →"), use_container_width=True, query_params={"from_page": "overview"}
+            router.get_page("skills", "Browse Skills →"),
+            # _get_page("skills", "Browse Skills →")
+            use_container_width=True,
+            query_params={"from_page": "overview"},
         )
 
     st.divider()
@@ -90,7 +99,7 @@ def overview() -> None:
                         st.caption(per_label)
                     st.markdown(hexpe.description)
                     st.page_link(
-                        _get_page("experiences", "Read full details →"), query_params={"from_page": "overview"}
+                        router.get_page("experiences", "Read full details →"), query_params={"from_page": "overview"}
                     )
 
     st.divider()
@@ -133,7 +142,7 @@ def overview() -> None:
 
                     # Link to filtered skills page
                     st.page_link(
-                        _get_page("skills", f"View all {category} skills →"),
+                        router.get_page("skills", f"View all {category} skills →"),
                         query_params={"category": category, "from_page": "overview"},
                     )
     st.divider()
@@ -167,7 +176,7 @@ def overview() -> None:
                 use_container_width=True,
             )
 
-    st.page_link(_get_page("publications", "View all publications →"))
+    st.page_link(router.get_page("publications", "View all publications →"))
 
     st.divider()
 
@@ -178,82 +187,50 @@ def overview() -> None:
 
     with cta_col1:
         st.page_link(
-            _get_page("experiences", ":briefcase: Full Experience"),
+            router.get_page("experiences", ":briefcase: Full Experience"),
             use_container_width=True,
             query_params={"from_page": "overview"},
         )
 
     with cta_col2:
         st.page_link(
-            _get_page("projects", ":rocket: Side Projects"),
+            router.get_page("side_projects", ":rocket: Side Projects"),
             use_container_width=True,
             query_params={"from_page": "overview"},
         )
 
     with cta_col3:
         st.page_link(
-            _get_page("contact", ":email: Contact Me"), use_container_width=True, query_params={"from_page": "overview"}
+            router.get_page("contact", ":email: Contact Me"),
+            use_container_width=True,
+            query_params={"from_page": "overview"},
         )
 
 
+@router.page(_SECTION_CV, title="Experiences", icon=":material/business_center:")
 @st.fragment
-def cv_experiences() -> None:
-    back_nav_link(_get_page)
+def experiences() -> None:
+    router.back_nav_link()
 
     cards_and_dialogs_layout(
-        ":briefcase: Professional Experiences", "content/experiences", {"on_skill_popover": _render_skill_popover}
+        router,
+        ":briefcase: Professional Experiences",
+        "content/experiences",
+        {"on_skill_popover": render_skill_popover},
     )
 
     st.divider()
     with st.container(horizontal_alignment="right"):
         st.page_link(
-            _get_page("education", "See education ->"),
+            router.get_page("education", "See education ->"),
             query_params={"from_page": "experiences"},
         )
 
 
-def _render_skill_popover(skill_name: str) -> None:
-    skill = get_skill_info(skill_name)
-    if skill is None:
-        return
-
-    nb_cols = 0
-    if skill.level:
-        nb_cols += 1
-    if skill.link:
-        nb_cols += 1
-
-    cols = st.columns(nb_cols)
-
-    if skill.level:
-        with cols[0]:
-            st.metric(
-                "Level", skill.level.level, None, help=f"{skill.level.label}: {skill.level.description}", format="%d/5"
-            )
-
-    if skill.link:
-        with cols[1]:
-            st.link_button("About :material/open_in_new:", skill.link, type="secondary")
-
-    if skill.last_used_year:
-        msg = f"Used for the last time in {skill.last_used_year}"
-        if skill.in_industrial_context is not None and not skill.in_industrial_context:
-            msg += " (never in production)"
-        st.caption(msg)
-
-    with st.container(horizontal_alignment="right"):
-        st.page_link(
-            _get_page("skills", "View all related skills ->"),
-            query_params={
-                "category": skill.category,
-                "from_page": "experiences",
-            },
-        )
-
-
+@router.page(_SECTION_CV, title="Skills", icon=":material/handyman:")
 @st.fragment
-def cv_skills() -> None:
-    back_nav_link(_get_page)
+def skills() -> None:
+    router.back_nav_link()
 
     st.title(":hammer_and_wrench: Skills")
 
@@ -392,23 +369,25 @@ def cv_skills() -> None:
                     st.write(level.examples_formatted)
 
 
+@router.page(_SECTION_CV, title="Education", icon=":material/school:")
 @st.fragment
-def cv_education() -> None:
-    back_nav_link(_get_page)
+def education() -> None:
+    router.back_nav_link()
 
-    cards_and_dialogs_layout(":man_student: Education", "content/education")
+    cards_and_dialogs_layout(router, ":man_student: Education", "content/education")
 
     st.divider()
     with st.container(horizontal_alignment="right"):
         st.page_link(
-            _get_page("experiences", "See experiences ->"),
+            router.get_page("experiences", "See experiences ->"),
             query_params={"from_page": "education"},
         )
 
 
+@router.page(_SECTION_CONTRIBUTIONS, title="Side Projects", icon=":material/code:")
 @st.fragment
-def other_side_projects() -> None:
-    back_nav_link(_get_page)
+def side_projects() -> None:
+    router.back_nav_link()
 
     hooks: RenderingHooks = {
         "overview_before": lambda: st.write(
@@ -423,20 +402,21 @@ def other_side_projects() -> None:
     tabs_layout(
         ":rocket: Side projects",
         "content/side-projects",
-        _get_page,
         rendering_hooks=hooks,
     )
 
 
+@router.page(_SECTION_CONTRIBUTIONS, title="Publications", icon=":material/book:")
 @st.fragment
-def other_publications() -> None:
-    back_nav_link(_get_page)
+def publications() -> None:
+    router.back_nav_link()
     cards_layout(":loudspeaker: Articles and Talks", "content/publications.yaml")
 
 
+@router.page("Information", title="Contact", icon=":material/email:")
 @st.fragment
-def info_contact() -> None:
-    back_nav_link(_get_page)
+def contact() -> None:
+    router.back_nav_link()
     st.title(":mailbox: Contact")
 
     st.space("medium")
@@ -474,25 +454,3 @@ def info_contact() -> None:
         st.space("medium")
 
         st.info("References available on request")
-
-
-def _get_page(name: str, label: str | None = None) -> StreamlitPage:
-    label = label or name.title()
-
-    match name:
-        case "overview":
-            return st.Page(overview, title=label)
-        case "experiences":
-            return st.Page(cv_experiences, title=label)
-        case "skills":
-            return st.Page(cv_skills, title=label)
-        case "education":
-            return st.Page(cv_education, title=label)
-        case "projects":
-            return st.Page(other_side_projects, title=label)
-        case "publications":
-            return st.Page(other_publications, title=label)
-        case "contact":
-            return st.Page(info_contact, title=label)
-        case _:
-            raise ValueError(f"Unknown page name: {name}")

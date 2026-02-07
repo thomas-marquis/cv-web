@@ -4,6 +4,7 @@ from typing import Callable, TypedDict
 
 import streamlit as st
 
+from ...navigation import Router
 from ..datasource import MarkdownDocument, load_documents
 
 type SkillName = str
@@ -14,7 +15,7 @@ class RenderingHooks(TypedDict, total=False):
 
 
 @st.dialog("About this experience", width="medium")
-def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], None]) -> None:
+def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], None], router: Router) -> None:
     st.markdown(doc.content, unsafe_allow_html=True)
 
     if not doc.skills:
@@ -29,13 +30,14 @@ def _open_dialog(doc: MarkdownDocument, on_skill_popover: Callable[[SkillName], 
             if skill.details:
                 st.write(skill.details)
             with st.popover("About this skill", type="tertiary"):
-                on_skill_popover(skill.name)
+                on_skill_popover(skill.name, router)
 
 
 @st.fragment
 def card(
+    router: Router,
     doc: MarkdownDocument,
-    on_click: Callable[[MarkdownDocument, Callable[[SkillName], None]], None],
+    on_click: Callable[[MarkdownDocument, Callable[[SkillName], None], Router], None],
     rendering_hooks: RenderingHooks | None = None,
 ) -> None:
     if doc.period and (start := doc.period.start):
@@ -64,12 +66,12 @@ def card(
         with st.container(horizontal_alignment="right"):
             btn_key = f"details_open_btn_{doc.title}"
             if st.button("Read the full story ->", key=btn_key, type="primary"):
-                on_click(doc, rendering_hooks.get("on_skill_popover"))
+                on_click(doc, rendering_hooks.get("on_skill_popover"), router)
 
 
 @st.fragment
 def cards_and_dialogs_layout(
-    title: str, folder_path: Path | str, rendering_hooks: RenderingHooks | None = None
+    router: Router, title: str, folder_path: Path | str, rendering_hooks: RenderingHooks | None = None
 ) -> None:
     rendering_hooks = rendering_hooks or {}
     st.title(title)
@@ -81,7 +83,7 @@ def cards_and_dialogs_layout(
         return
 
     for i, xp_doc in enumerate(sorted(docs, key=attrgetter("weight"), reverse=True)):
-        card(xp_doc, _open_dialog, rendering_hooks=rendering_hooks)
+        card(router, xp_doc, _open_dialog, rendering_hooks=rendering_hooks)
 
         if i < len(docs) - 1:
             st.space("small")

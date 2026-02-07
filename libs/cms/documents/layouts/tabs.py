@@ -4,7 +4,6 @@ from typing import Callable, TypedDict
 
 import streamlit as st
 
-from ...common import Pager
 from ..datasource import load_documents
 
 
@@ -13,9 +12,7 @@ class RenderingHooks(TypedDict, total=False):
     overview_after: Callable[[], None]
 
 
-def tabs_layout(
-    title: str, folder_path: Path | str, pager: Pager, rendering_hooks: RenderingHooks | None = None
-) -> None:
+def tabs_layout(title: str, folder_path: Path | str, rendering_hooks: RenderingHooks | None = None) -> None:
     st.title(title)
 
     docs = load_documents(folder_path)

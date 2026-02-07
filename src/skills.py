@@ -1,10 +1,11 @@
 from collections import namedtuple
 from dataclasses import dataclass
 from enum import Enum
-from unicodedata import category
 
 import polars as pl
 import streamlit as st
+
+from libs.cms import Router
 
 SkillLevel = namedtuple("SkillLevel", ["level", "label", "description", "examples"])
 
@@ -126,3 +127,42 @@ def get_skill_info(skill_name: str) -> SkillInfo | None:
         link=skill_row["link"].item(),
         category=skill_row["category"].item(),
     )
+
+
+def render_skill_popover(skill_name: str, router: Router) -> None:
+    skill = get_skill_info(skill_name)
+    if skill is None:
+        return
+
+    nb_cols = 0
+    if skill.level:
+        nb_cols += 1
+    if skill.link:
+        nb_cols += 1
+
+    cols = st.columns(nb_cols)
+
+    if skill.level:
+        with cols[0]:
+            st.metric(
+                "Level", skill.level.level, None, help=f"{skill.level.label}: {skill.level.description}", format="%d/5"
+            )
+
+    if skill.link:
+        with cols[1]:
+            st.link_button("About :material/open_in_new:", skill.link, type="secondary")
+
+    if skill.last_used_year:
+        msg = f"Used for the last time in {skill.last_used_year}"
+        if skill.in_industrial_context is not None and not skill.in_industrial_context:
+            msg += " (never in production)"
+        st.caption(msg)
+
+    with st.container(horizontal_alignment="right"):
+        st.page_link(
+            router.get_page("skills", "View all related skills ->"),
+            query_params={
+                "category": skill.category,
+                "from_page": "experiences",
+            },
+        )
