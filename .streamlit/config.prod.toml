@@ -1,0 +1,28 @@
+[server]
+headless = true
+enableCORS = true
+
+[theme]
+linkColor = "#FF8C00"
+yellowTextColor = "#FFA500"
+orangeTextColor = "#FF8C00"
+font = "sans serif"
+
+[theme.light]
+primaryColor = "#FF8C00"  # Dark orange
+backgroundColor = "#FFF8F0"  # Off-white/very light beige
+secondaryBackgroundColor = "#FFE6CC"  # Very pale orange
+textColor = "#3D2B1F"  # Dark brown
+
+
+[theme.dark]
+primaryColor = "#FFA500"  # Bright orange
+backgroundColor = "#1E1E1E"  # Deep black
+secondaryBackgroundColor = "#3A2E1D"  # Very dark brown
+textColor = "#FFF8F0"  # Pale gold
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false
