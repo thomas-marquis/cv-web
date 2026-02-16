@@ -1,6 +1,5 @@
 import datetime as dt
 import textwrap
-from pathlib import Path
 
 import polars as pl
 import streamlit as st
@@ -331,25 +330,6 @@ def skills() -> None:
             ),
         },
     )
-
-    # Bar chart of skills per category
-    with st.expander("📊 Skills Distribution by Category", expanded=False):
-        # Reload full dataset for the chart (ignoring filters)
-        full_data = load_skills_data()
-
-        # Count skills per category
-        category_counts = full_data.group_by("category").agg(pl.len().alias("count")).sort("count", descending=True)
-
-        st.bar_chart(
-            category_counts,
-            x="category",
-            y="count",
-            x_label="Category",
-            y_label="Number of Skills",
-            horizontal=False,
-        )
-
-        st.caption(f"Total: {len(full_data)} skills across {len(category_counts)} categories")
 
     with st.expander("About skill levels...", expanded=False):
         for level in SkillLevelEnum:
